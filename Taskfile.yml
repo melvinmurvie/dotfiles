@@ -1,0 +1,203 @@
+version: "3"
+
+set: [errexit, nounset]
+
+vars:
+  WIN_USER_PROFILE: { sh: 'wslpath $(pwsh.exe -Command ''[Environment]::GetFolderPath("UserProfile")'')' }
+  INSTALL_DIR: ${HOME}/.local/bin
+  TASKFILE_VERSION: v3.43.3
+  OH_MY_POSH_VERSION: v25.23.0
+  GO_VERSION: 1.24.2
+  NVM_VERSION: v0.40.3
+  NODE_VERSION: v20.12.0
+  LAZYGIT_VERSION: 0.50.0
+  LAZYDOCKER_VERSION: 0.24.1
+  K9S_VERSION: v0.50.5
+  GOLANGCI_LINT_VERSION: 2.1.6
+
+silent: true
+
+tasks:
+  default:
+    deps: [setup, sync]
+
+  setup:
+    desc: Setup all.
+    cmds:
+      - "[ -d {{.INSTALL_DIR}} ] && mkdir -p {{.INSTALL_DIR}}"
+      - task: setup:webi
+      - task: setup:dev
+
+  setup:taskfile:
+    cmds:
+      - echo "Installing Taskfile {{.TASKFILE_VERSION}}"
+      - curl -LSs https://github.com/go-task/task/releases/download/{{.TASKFILE_VERSION}}/task_linux_amd64.tar.gz | tar -C {{.INSTALL_DIR}} -xz task
+    status: ['[ "v$(task --version)" = "{{.TASKFILE_VERSION}}" ]']
+
+  setup:webi:
+    cmd: curl -sS https://webi.sh/webi | sh
+    status: [webi]
+
+  setup:dev:
+    deps:
+      - task: setup:apt
+      - task: setup:tools
+      - task: setup:go
+      - task: setup:node
+    cmds:
+      - task: setup:oh-my-zsh
+      - task: setup:oh-my-posh
+
+  setup:apt:
+    cmds:
+      - task: _apt
+        vars:
+          LIST:
+            - zsh
+            - ripgrep
+
+  _apt:
+    requires:
+      vars:
+        - LIST
+    vars:
+      PACKAGES: '{{join " " .LIST}}'
+    cmds:
+      - echo "Installing {{.PACKAGES}}"
+      - sudo apt install -qqy {{.PACKAGES}}
+    internal: true
+
+  setup:zsh:
+    cmds:
+      - sudo apt install -qqy zsh
+      - defer: echo "Changing default shell to zsh" && chsh -s $(which zsh)
+    status: [zsh --version]
+
+  setup:oh-my-zsh:
+    deps: [setup:zsh]
+    cmds:
+      - echo "Installing oh-my-zsh"
+      - sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    status: ["test -d ${HOME}/.oh-my-zsh"]
+
+  setup:oh-my-posh:
+    cmds:
+      - echo "Installing oh-my-posh {{.OH_MY_POSH_VERSION}}"
+      - curl -s https://ohmyposh.dev/install.sh | bash -s -- -d {{.INSTALL_DIR}} -v {{.OH_MY_POSH_VERSION}}
+    status:
+      - '[ "v$(oh-my-posh version)" = "{{.OH_MY_POSH_VERSION}}" ]'
+
+  setup:go:
+    cmds:
+      - echo "Removing /usr/local/go if any"
+      - sudo rm -rf /usr/local/go
+      - echo "Installing go {{.GO_VERSION}}"
+      - curl -LSs https://go.dev/dl/go{{.GO_VERSION}}.linux-amd64.tar.gz | sudo tar -C /usr/local -xz
+    status:
+      - '[ $(go version | awk ''{print $3}'' | sed ''s/^go//'') = "{{.GO_VERSION}}" ]'
+
+  setup:node:
+    deps: [setup:nvm]
+    cmds:
+      - echo "Installing node {{.NODE_VERSION}}"
+    status:
+      - '[ $(node --version) = "{{.NODE_VERSION}}" ]'
+
+  setup:nvm:
+    cmds:
+      - echo "Installing nvm {{.NVM_VERSION}}"
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{.NVM_VERSION}}/install.sh | bash
+    status:
+      - 'test -n "${NVM_DIR}"'
+      - 'test -d "${NVM_DIR}"'
+
+  setup:tools:
+    deps:
+      - task: _tool:task
+        vars:
+          VERSION: "{{.TASKFILE_VERSION}}"
+          STATUS: '[ "v$(task --version)" = "{{.TASKFILE_VERSION}}" ]'
+          DOWNLOAD_URL: https://github.com/go-task/task/releases/download/{{.TASKFILE_VERSION}}/task_linux_amd64.tar.gz
+      - task: _tool:lazygit
+        vars:
+          VERSION: "{{.LAZYGIT_VERSION}}"
+          STATUS: '[ $(lazygit --version | awk ''{print $6}'' | sed -E ''s/^version=(.*),/\1/'') = "{{.LAZYGIT_VERSION}}" ]'
+          DOWNLOAD_URL: https://github.com/jesseduffield/lazygit/releases/download/v{{.LAZYGIT_VERSION}}/lazygit_{{.LAZYGIT_VERSION}}_Linux_x86_64.tar.gz
+      - task: _tool:lazydocker
+        vars:
+          VERSION: "{{.LAZYDOCKER_VERSION}}"
+          STATUS: '[ $(lazydocker --version | head -n 1 | awk ''{print $2}'') = "{{.LAZYDOCKER_VERSION}}" ]'
+          DOWNLOAD_URL: https://github.com/jesseduffield/lazydocker/releases/download/v{{.LAZYDOCKER_VERSION}}/lazydocker_{{.LAZYDOCKER_VERSION}}_Linux_x86_64.tar.gz
+      - task: _tool:k9s
+        vars:
+          VERSION: "{{.K9S_VERSION}}"
+          STATUS: '[ $(k9s version --short | head -n 1 | awk ''{print $2}'') = "{{.K9S_VERSION}}" ]'
+          DOWNLOAD_URL: https://github.com/derailed/k9s/releases/download/{{.K9S_VERSION}}/k9s_Linux_amd64.tar.gz
+      - task: _tool:golangci-lint
+        vars:
+          VERSION: "{{.GOLANGCI_LINT_VERSION}}"
+          STATUS: '[ $(golangci-lint --version | awk ''{print $4}'') = "{{.GOLANGCI_LINT_VERSION}}" ]'
+          DOWNLOAD_URL: https://github.com/golangci/golangci-lint/releases/download/v{{.GOLANGCI_LINT_VERSION}}/golangci-lint-{{.GOLANGCI_LINT_VERSION}}-linux-amd64.tar.gz
+          STRIP_COMPONENTS: 1
+          DIR: golangci-lint-{{.GOLANGCI_LINT_VERSION}}-linux-amd64
+
+  _tool:*:
+    requires:
+      vars:
+        - VERSION
+        - STATUS
+        - DOWNLOAD_URL
+    vars:
+      TOOL: "{{index .MATCH 0}}"
+    label: _tool:{{.TOOL}}
+    cmds:
+      - echo "Installing {{.TOOL}} {{.VERSION}} to {{.INSTALL_DIR}}"
+      - curl -LSs {{.DOWNLOAD_URL}} |
+        tar
+        {{- if .STRIP_COMPONENTS}} --strip-components={{.STRIP_COMPONENTS}}{{- end}}
+        -C {{.INSTALL_DIR}}
+        -xz
+        {{- if .DIR}}
+          {{.DIR}}/{{.TOOL}}
+        {{- else}}
+          {{.TOOL}}
+        {{- end}}
+    status: [ "{{.STATUS}}" ]
+
+  sync:
+    desc: Sync all configurations.
+    deps:
+      - task: _sync:k9s
+      - task: _sync:zsh
+      - task: _sync:zellij
+      - task: _sync:lazygit
+      - task: _sync:lazydocker
+      - task: _sync:oh-my-posh
+      - task: _sync:nvim
+      - task: _sync:alacritty
+        vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Roaming" }
+      - task: _syncfile:.zshrc
+        vars: { DIR: { sh: "echo ${HOME}" } }
+      - task: _syncfile:.inputrc
+        vars: { DIR: { sh: "echo ${HOME}" } }
+
+  _sync:*:
+    vars:
+      CONFIG: "{{index .MATCH 0}}"
+      DIR: '{{.DIR | default "${HOME}/.config"}}'
+    label: _sync:{{.CONFIG}}
+    cmds:
+      - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}"
+      - rsync --quiet --recursive --delete {{.ROOT_DIR}}/.config/{{.CONFIG}}/ {{.DIR}}/{{.CONFIG}}/
+    internal: true
+
+  _syncfile:*:
+    requires:
+      vars: [DIR]
+    vars:
+      FILE: "{{index .MATCH 0}}"
+    label: _syncfile:{{.FILE}}
+    cmds:
+      - echo "Syncing {{.FILE}} to {{.DIR}}/{{.FILE}}"
+      - rsync --quiet {{.ROOT_DIR}}/{{.FILE}} {{.DIR}}/{{.FILE}}
+    internal: true

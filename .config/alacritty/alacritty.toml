@@ -1,0 +1,24 @@
+[general]
+import = [
+  "./catppuccin-macchiato.toml"
+]
+
+[terminal.shell]
+program = "C:\\WINDOWS\\system32\\wsl.exe"
+args = [ "--cd", "~" ]
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+
+[window]
+opacity = 0.95
+decorations = "None"
+dynamic_padding = true
+
+[window.padding]
+x = 0
+y = 0
+
+[colors]
+transparent_background_colors = true
+draw_bold_text_with_bright_colors = true
