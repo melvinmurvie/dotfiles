@@ -7,9 +7,10 @@
 local gopls_settings = {
   -- Disable gofumpt for now
   gofumpt = false,
-  -- analyses = {
-  --   ST1003 = false,
-  -- },
+  analyses = {
+    ST1003 = false,
+    shadow = false,
+  },
 }
 
 local M = {
