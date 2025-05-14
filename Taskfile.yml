@@ -158,11 +158,11 @@ tasks:
         -C {{.INSTALL_DIR}}
         -xz
         {{- if .DIR}}
-          {{.DIR}}/{{.TOOL}}
+        {{.DIR}}/{{.TOOL}}
         {{- else}}
-          {{.TOOL}}
+        {{.TOOL}}
         {{- end}}
-    status: [ "{{.STATUS}}" ]
+    status: ["{{.STATUS}}"]
 
   sync:
     desc: Sync all configurations.
