@@ -94,32 +94,51 @@ layout {
         children
         pane size=1 borderless=true {
             plugin location="https://github.com/dj95/zjstatus/releases/download/v0.20.2/zjstatus.wasm" {
-                format_left   "{mode} #[fg=#89B4FA,bold]{session}"
+                color_fg     "#cad3f5"
+                color_fg_dim "#a5adcb"
+                color_pink   "#f5bde6"
+                color_blue   "#8aadf4"
+                color_orange "#f5a97f"
+                color_green  "#a6da95"
+
+                mode_normal        "#[bg=$green] "
+                mode_locked        "#[bg=$pink] "
+                mode_resize        "#[bg=$orange] "
+                mode_pane          "#[bg=$orange] "
+                mode_tab           "#[bg=$orange] "
+                mode_scroll        "#[bg=$orange] "
+                mode_enter_search  "#[bg=$orange] "
+                mode_search        "#[bg=$orange] "
+                mode_rename_tab    "#[bg=$orange] "
+                mode_rename_pane   "#[bg=$orange] "
+                mode_session       "#[bg=$orange] "
+                mode_move          "#[bg=$orange] "
+                mode_prompt        "#[bg=$orange] "
+
+                format_left   "{mode} #[fg=$blue,bold]{session}"
                 format_center "{tabs}"
-                format_right  "{command_git_branch}"
+                format_right  "{command_docker_context}{command_git_branch}"
                 format_space  ""
 
                 border_enabled  "false"
                 border_char     "─"
-                border_format   "#[fg=#6C7086]{char}"
+                border_format   "#[fg=$fg]{char}"
                 border_position "top"
 
                 hide_frame_for_single_pane "false"
 
-                mode_normal  "#[bg=blue] "
-                mode_tmux    "#[bg=#ffc387] "
-
-                tab_normal   "#[fg=#6C7086] {name} "
-                tab_active   "#[fg=#9399B2,bold,italic] {name} "
+                tab_normal   "#[fg=$fg_dim] {name} "
+                tab_active   "#[fg=$fg,bold,italic] {name} "
 
                 command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-                command_git_branch_format      "#[fg=blue] {stdout} "
+                command_git_branch_format      "#[fg=$blue]  {stdout} "
                 command_git_branch_interval    "10"
                 command_git_branch_rendermode  "static"
 
-                datetime        "#[fg=#6C7086,bold] {format} "
-                datetime_format "%A, %d %b %Y %H:%M"
-                datetime_timezone "Asia/Taipei"
+                command_docker_context_command    "docker context show"
+                command_docker_context_format     "#[fg=$blue]   {stdout}"
+                command_docker_context_interval   "5"
+                command_docker_context_rendermode "static"
             }
         }
     }
