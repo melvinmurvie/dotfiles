@@ -115,9 +115,9 @@ layout {
                 mode_move          "#[bg=$orange] "
                 mode_prompt        "#[bg=$orange] "
 
-                format_left   "{mode} #[fg=$blue,bold]{session}"
+                format_left   "{mode}#[fg=$blue,bold]"
                 format_center "{tabs}"
-                format_right  "{command_docker_context}{command_git_branch}"
+                format_right  "{command_docker_context}{command_git_branch}{mode}"
                 format_space  ""
 
                 border_enabled  "false"
