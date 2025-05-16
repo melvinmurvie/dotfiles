@@ -71,6 +71,9 @@ return {
   -- Hover https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/utility/hover-nvim
   -- { import = "astrocommunity.utility.hover-nvim" },
 
+  -- Surround motion lua/astrocommunity/motion/mini-surround
+  { import = "astrocommunity.motion.mini-surround" },
+
   -- Docker terminal https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/docker/lazydocker
   { import = "astrocommunity.docker.lazydocker" },
 }
