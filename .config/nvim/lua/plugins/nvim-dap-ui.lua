@@ -48,4 +48,25 @@ return {
       maps.n["<Leader>du"] = { function() require("dapui").toggle { reset = true } end, desc = "Toggle Debugger UI" }
     end,
   },
+  {
+    "AstroNvim/astrocore",
+    ft = "dap-repl",
+    ---@type AstroCoreOpts
+    opts = {
+      autocmds = {
+        daprepl_color = {
+          {
+            event = "FileType",
+            desc = "Colorise dap-repl",
+            pattern = { "dap-repl" },
+            callback = function()
+              local ok, baleia = pcall(require, "baleia")
+              if not ok then return end
+              baleia.setup().automatically(vim.api.nvim_get_current_buf())
+            end,
+          },
+        },
+      },
+    },
+  },
 }
