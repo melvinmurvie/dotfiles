@@ -430,6 +430,12 @@ bind C-a send-prefix
 # move status line to top
 set -g status-position top
 
+# restore default next & previous window keybindings
+bind -r p previous-window
+bind -r n next-window
+
+# fast but still comfortable repeat time
+set -sg repeat-time 280
 
 # -- tpm -----------------------------------------------------------------------
 
