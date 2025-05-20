@@ -537,7 +537,7 @@ set -g @plugin 'christoomey/vim-tmux-navigator'
 # }
 #
 # docker_context() {
-#   docker context show
+#   docker context show || echo "#[underscore,bold]error"
 # }
 #
 # k8s_context() {
