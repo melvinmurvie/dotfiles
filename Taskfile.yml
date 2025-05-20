@@ -176,12 +176,20 @@ tasks:
       - task: _sync:oh-my-posh
       - task: _sync:nvim
       - task: _sync:tmux
+      - task: _sync:WindowsPowerShell
+        vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
+      - task: _sync:komorebi
+        vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
+      - task: _sync:yasb
+        vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
       - task: _sync:alacritty
         vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Roaming" }
       - task: _syncfile:.zshrc
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
         vars: { DIR: { sh: "echo ${HOME}" } }
+      - task: _syncfile:.config/whkdrc
+        vars: { DIR: "{{.WIN_USER_PROFILE}}" }
 
   _sync:*:
     vars:
@@ -192,6 +200,7 @@ tasks:
       - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}"
       - rsync --quiet --recursive --delete {{.ROOT_DIR}}/.config/{{.CONFIG}}/ {{.DIR}}/{{.CONFIG}}/
     internal: true
+    ignore_error: true
 
   _syncfile:*:
     requires:
@@ -203,3 +212,4 @@ tasks:
       - echo "Syncing {{.FILE}} to {{.DIR}}/{{.FILE}}"
       - rsync --quiet {{.ROOT_DIR}}/{{.FILE}} {{.DIR}}/{{.FILE}}
     internal: true
+    ignore_error: true
