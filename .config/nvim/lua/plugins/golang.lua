@@ -149,6 +149,19 @@ end
 
 return {
   {
+    "AstroNvim/astrocore",
+    ft = "go",
+    ---@type AstroCoreOpts
+    opts = {
+      options = {
+        opt = {
+          tabstop = 4,
+          shiftwidth = 4,
+        },
+      },
+    },
+  },
+  {
     "AstroNvim/astrolsp",
     optional = true,
     ---@type AstroLSPOpts
