@@ -48,6 +48,7 @@ bars:
         - microphone
         - volume
         - notifications
+        - clock
         - power_menu
 widgets:
   home:
@@ -62,6 +63,13 @@ widgets:
       system_menu: true
       power_menu: true
       blur: false
+      round_corners: true
+      round_corners_type: "normal"
+      border_color: "System"
+      alignment: "left"
+      direction: "down"
+      offset_top: 6
+      offset_left: 0
   media:
     type: "yasb.media.MediaWidget"
     options:

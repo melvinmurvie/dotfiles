@@ -1,6 +1,6 @@
 * {
   font-size: 12px;
-  color: #cdd6f4;
+  color: #cad3f5;
   font-weight: 500;
   font-family: "JetBrainsMono NFP";
   margin: 0;
@@ -10,7 +10,7 @@
 .yasb-bar {
   padding: 0 8px;
   margin: 0;
-  background-color: #1e1e2e;
+  background-color: #24273a;
   border-radius: 12px;
 }
 
@@ -36,32 +36,33 @@
 }
 
 .home-widget .icon {
-  color: #b4befe;
+  /* color: #b7bdf8; */
+  color: #8aadf4;
 }
 
 .home-widget .icon:hover {
-  color: #cdd6f4;
+  color: #cad3f5;
 }
 
 .home-menu {
-  background-color: rgba(17, 17, 27, 0.9);
+  background-color: rgba(24, 25, 38, 0.9);
 }
 
 .home-menu .menu-item {
   padding: 6px 48px 7px 16px;
   font-size: 12px;
-  color: var(--text);
+  color: #cad3f5;
   font-weight: 600;
 }
 
 .home-menu .menu-item:hover {
-  background-color: rgba(128, 130, 158, 0.15);
-  color: #fff;
+  background-color: rgba(73, 77, 100, 0.9);
+  color: #cad3f5;
 }
 
 .home-menu .separator {
   max-height: 1px;
-  background-color: rgba(128, 130, 158, 0.3);
+  background-color: rgba(128, 135, 162, 0.9);
 }
 
 .komorebi-workspaces .ws-btn {
@@ -71,48 +72,55 @@
   color: #95a0ad;
 }
 
-.komorebi-workspaces .ws-btn.populated {
-  color: #74c7ec;
-}
-
 .komorebi-workspaces .ws-btn:hover,
+.komorebi-workspaces .ws-btn.populated,
 .komorebi-workspaces .ws-btn.populated:hover,
 .komorebi-workspaces .ws-btn.active {
-  color: #89b4fa;
+  color: #8aadf4;
 }
 
 .komorebi-control-widget .label {
   font-size: 14px;
-  color: #cdd6f4;
+  color: #cad3f5;
   font-weight: 600;
 }
 
+.komorebi-control-widget .icon {
+  color: #8aadf4;
+}
+
+.komorebi-control-widget .icon:hover {
+  color: #cad3f5;
+}
+
 .komorebi-control-menu {
-  background-color: rgba(17, 17, 27, 0.2);
+  background-color: rgba(24, 25, 38, 0.9);
 }
 
 .komorebi-control-menu .button {
-  color: rgba(162, 177, 199, 0.4);
+  color: #494d64;
   padding: 8px 16px;
   font-size: 32px;
   border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.04);
+  background-color: #24273a;
 }
 
 .komorebi-control-menu .button.active {
-  color: rgb(228, 228, 228);
-  background-color: rgba(255, 255, 255, 0.04);
+  color: #cad3f5;
+  background-color: #24273a;
 }
 
 .komorebi-control-menu .button:disabled,
 .komorebi-control-menu .button.active:disabled {
-  background-color: rgba(255, 255, 255, 0.01);
-  color: rgba(255, 255, 255, 0.2);
+  /* background-color: rgba(255, 255, 255, 0.01); */
+  /* color: rgba(255, 255, 255, 0.2); */
+  background-color: #1e2030;
+  color: #181926;
 }
 
 .komorebi-control-menu .footer .text {
   font-size: 12px;
-  color: #6c7086;
+  color: #494d64;
 }
 
 /*POWER MENU WIDGET*/
@@ -174,13 +182,13 @@
 }
 
 .volume-widget .icon {
-  color: #89b4fa;
+  color: #8aadf4;
   margin: 1px 2px 0 0;
 }
 
 .start-menu .icon {
   font-size: 18px;
-  color: #89b4fa;
+  color: #8aadf4;
 }
 
 .clock-widget .icon {
