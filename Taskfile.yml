@@ -176,6 +176,8 @@ tasks:
       - task: _sync:oh-my-posh
       - task: _sync:nvim
       - task: _sync:tmux
+      - task: _sync:nvim
+        vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
       - task: _sync:WindowsPowerShell
         vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
       - task: _sync:komorebi
