@@ -2,8 +2,15 @@
 
 # Reload whkd configuration
 # alt + o                 : taskkill /f /im whkd.exe && start /b whkd # if shell is cmd
-alt + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
-alt + shift + o         : komorebic reload-configuration
+
+# Reload
+alt + shift + w         : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
+alt + shift + k         : komorebic stop --whkd; komorebic start --whkd
+alt + shift + y         : yasbc reload
+
+# Start
+ctrl + alt + k          : komorebic start --whkd
+ctrl + alt + y          : yasbc start
 
 alt + i                 : komorebic toggle-shortcuts
 
@@ -15,7 +22,7 @@ alt + b                 : if ($wshell.AppActivate('Brave') -eq $False) { start b
 alt + q                 : if ($wshell.AppActivate('Alacritty') -eq $False) { start alacritty } # This will always spawn a new process since its title is dynamic
 alt + s                 : if ($wshell.AppActivate('Spotify') -eq $False) { start spotify }
 
-alt + c                 : komorebic close
+alt + x                 : komorebic close
 alt + m                 : komorebic minimize
 
 # Focus windows
