@@ -5,11 +5,11 @@
 
 # Reload
 alt + shift + w         : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden # if shell is pwsh / powershell
-alt + shift + k         : komorebic stop --whkd; komorebic start --whkd
+alt + shift + o         : komorebic stop --whkd; komorebic start --whkd
 alt + shift + y         : yasbc reload
 
 # Start
-ctrl + alt + k          : komorebic start --whkd
+ctrl + alt + o          : komorebic start --whkd
 ctrl + alt + y          : yasbc start
 
 alt + i                 : komorebic toggle-shortcuts
@@ -19,10 +19,10 @@ alt + i                 : komorebic toggle-shortcuts
 # alt + f                 : if ($wshell.AppActivate('Firefox') -eq $False) { start firefox }
 # alt + b                 : if ($wshell.AppActivate('Chrome') -eq $False) { start chrome }
 alt + b                 : if ($wshell.AppActivate('Brave') -eq $False) { start brave }
-alt + q                 : if ($wshell.AppActivate('Alacritty') -eq $False) { start alacritty } # This will always spawn a new process since its title is dynamic
+alt + e                 : if ($wshell.AppActivate('Alacritty') -eq $False) { start alacritty } # This will always spawn a new process since its title is dynamic
 alt + s                 : if ($wshell.AppActivate('Spotify') -eq $False) { start spotify }
 
-alt + x                 : komorebic close
+alt + q                 : komorebic close
 alt + m                 : komorebic minimize
 
 # Focus windows
