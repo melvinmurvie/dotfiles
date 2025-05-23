@@ -292,7 +292,7 @@ tmux_conf_theme_right_separator_sub="|"
 #tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} "
 
 tmux_conf_theme_status_left="#{?client_prefix,#[bg=$tmux_conf_theme_colour_11],#[bg=$tmux_conf_theme_colour_10]} "
-tmux_conf_theme_status_right="  #[fg=$tmux_conf_theme_colour_7]#{k8s_context} |   #[fg=$tmux_conf_theme_colour_7]#{docker_context} "
+tmux_conf_theme_status_right="  #[fg=$tmux_conf_theme_colour_7]#{k8s_context} |   #{?#{has_docker_context},#[fg=$tmux_conf_theme_colour_7]#{@docker_context},#[fg=$tmux_conf_theme_colour_2,italics]unavailable} "
 
 # status left style
 tmux_conf_theme_status_left_fg="default"
@@ -537,8 +537,16 @@ set -g @plugin 'christoomey/vim-tmux-navigator'
 #   sleep 300                                         # sleep for 5 minutes, throttle network requests whatever the value of status-interval
 # }
 #
-# docker_context() {
-#   docker context show || echo "#[underscore,bold]error"
+# has_docker_context() {
+#   local context
+#   context=$(docker context show 2>/dev/null)
+#   if [ -n "${context}" ]; then
+#     tmux set -g '@docker_context' "${context}"
+#     echo 1
+#   else
+#     tmux set -ug '@docker_context'
+#     echo 0
+#   fi
 # }
 #
 # k8s_context() {
