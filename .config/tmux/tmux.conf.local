@@ -539,8 +539,7 @@ set -g @plugin 'christoomey/vim-tmux-navigator'
 #
 # has_docker_context() {
 #   local context
-#   context=$(docker context show 2>/dev/null)
-#   if [ -n "${context}" ]; then
+#   if context=$(docker context show); then
 #     tmux set -g '@docker_context' "${context}"
 #     echo 1
 #   else
