@@ -205,11 +205,28 @@
   color: #b4befe;
   padding: 0px;
   padding-right: 4px;
+  font-size: 12px;
 }
 
-/* Hide media widget buttons */
 .media-widget .btn {
+  color: #cad3f5;
   padding: 0;
-  margin: 0 -6px;
-  padding-left: 4px;
+  padding: 0 4px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.media-widget .btn:hover {
+  color: #8aadf4;
+}
+
+.media-widget .btn.play {
+  font-size: 16px;
+}
+
+.media-widget .btn.disabled:hover,
+.media-widget .btn.disabled {
+  color: #181926;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0);
 }
