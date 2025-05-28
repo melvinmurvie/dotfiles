@@ -180,6 +180,8 @@ tasks:
         vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
       - task: _sync:WindowsPowerShell
         vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
+      - task: _sync:PowerShell
+        vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
       - task: _sync:komorebi
         vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
       - task: _sync:yasb
