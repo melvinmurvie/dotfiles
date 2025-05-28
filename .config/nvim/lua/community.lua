@@ -76,4 +76,10 @@ return {
 
   -- Docker terminal https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/docker/lazydocker
   { import = "astrocommunity.docker.lazydocker" },
+
+  -- Markdown preview https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/markdown-and-latex/markdown-preview-nvim
+  { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+
+  -- Render markdown https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/markdown-and-latex/render-markdown-nvim
+  { import = "astrocommunity.markdown-and-latex.render-markdown-nvim" },
 }
