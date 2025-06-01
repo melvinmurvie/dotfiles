@@ -192,6 +192,8 @@ tasks:
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
         vars: { DIR: { sh: "echo ${HOME}" } }
+      - task: _syncfile:.inputrc
+        vars: { DIR: "{{.WIN_USER_PROFILE}}" }
       - task: _syncfile:.config/whkdrc
         vars: { DIR: "{{.WIN_USER_PROFILE}}" }
 
