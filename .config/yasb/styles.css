@@ -36,7 +36,6 @@
 }
 
 .home-widget .icon {
-  /* color: #b7bdf8; */
   color: #8aadf4;
 }
 
@@ -112,8 +111,6 @@
 
 .komorebi-control-menu .button:disabled,
 .komorebi-control-menu .button.active:disabled {
-  /* background-color: rgba(255, 255, 255, 0.01); */
-  /* color: rgba(255, 255, 255, 0.2); */
   background-color: #1e2030;
   color: #181926;
 }
@@ -130,11 +127,10 @@
   margin-bottom: 10px;
   color: rgba(191, 202, 219, 0.726);
   font-weight: 600;
-  /* font-family: "Segoe UI"; */
 }
 
 .power-menu-widget .label {
-  color: #eba0ac;
+  color: #ed8796;
   font-size: 16px;
 }
 
@@ -181,8 +177,18 @@
   font-size: 16px;
 }
 
+.microphone-widget .icon {
+  color: #a6da95;
+  margin: 1px 2px 0 0;
+}
+
 .volume-widget .icon {
   color: #8aadf4;
+  margin: 1px 2px 0 0;
+}
+
+.notification-widget .icon {
+  color: #eed49f;
   margin: 1px 2px 0 0;
 }
 
@@ -198,35 +204,131 @@
 
 .media-widget {
   padding: 0;
-  margin: 0;
+  margin: 0 2px;
 }
 
 .media-widget .label {
   color: #b4befe;
   padding: 0px;
-  padding-right: 4px;
   font-size: 12px;
 }
 
 .media-widget .btn {
   color: #cad3f5;
-  padding: 0;
   padding: 0 4px;
-  margin: 0;
+  margin: 0 4px;
   font-weight: 400;
 }
 
+.media-widget .btn.play:hover,
 .media-widget .btn:hover {
   color: #8aadf4;
 }
 
 .media-widget .btn.play {
   font-size: 16px;
+  color: #f5bde6;
 }
 
 .media-widget .btn.disabled:hover,
 .media-widget .btn.disabled {
-  color: #181926;
+  color: #494d64;
   font-size: 12px;
   background-color: rgba(0, 0, 0, 0);
+}
+
+.media-menu {
+  min-width: 420px;
+  max-width: 420px;
+  background-color: rgba(24, 25, 38, 0.9);
+}
+
+.media-menu .title,
+.media-menu .artist,
+.media-menu .source {
+  font-size: 14px;
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+.media-menu .artist {
+  font-size: 13px;
+  color: #cad3f5;
+  margin-top: 0px;
+  margin-bottom: 8px;
+}
+
+.media-menu .source {
+  font-size: 11px;
+  color: #181926;
+  font-weight: normal;
+  border-radius: 3px;
+  background-color: #cad3f5;
+  padding: 2px 4px;
+}
+
+.media-menu .btn {
+  font-size: 13px;
+  font-weight: 400;
+  margin: 10px 2px 0px 2px;
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  border-radius: 20px;
+}
+
+.media-menu .btn.prev {
+  margin-left: 10px;
+}
+
+.media-menu .btn.play:hover,
+.media-menu .btn:hover {
+  color: #8aadf4;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.media-menu .btn.play {
+  color: #f5bde6;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 20px;
+}
+
+.media-menu .btn.disabled:hover,
+.media-menu .btn.disabled {
+  color: #494d64;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.media-menu .playback-time {
+  font-size: 13px;
+  color: #494d64;
+  margin-top: 20px;
+  min-width: 100px;
+}
+
+.media-menu .progress-slider {
+  height: 10px;
+  margin: 5px 4px;
+  border-radius: 3px;
+}
+
+.media-menu .progress-slider::groove {
+  background: transparent;
+  height: 2px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.media-menu .progress-slider::groove:hover {
+  background: transparent;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.media-menu .progress-slider::sub-page {
+  background: #cad3f5;
+  border-radius: 3px;
+  height: 4px;
 }
