@@ -13,7 +13,7 @@ bars:
     class_name: "yasb-bar"
     alignment:
       position: "top"
-      center: false
+      center: true
     animation:
       enabled: true
       duration: 250
@@ -28,13 +28,13 @@ bars:
       always_on_top: false
       windows_app_bar: true
     dimensions:
-      width: "100%"
+      width: 100%
       height: 32
     padding:
       top: 6
-      left: 6
+      left: 0
       bottom: 0
-      right: 6
+      right: 16
     widgets:
       left:
         - home
@@ -49,7 +49,7 @@ bars:
         - volume
         - notifications
         - clock
-        - power_menu
+        # - power_menu
 widgets:
   home:
     type: "yasb.home.HomeWidget"
@@ -74,19 +74,19 @@ widgets:
     type: "yasb.media.MediaWidget"
     options:
       label: "{title}"
-      label_alt: "{artist} - {title}"
+      label_alt: "{artist}"
       callbacks:
         on_left: "toggle_label"
         on_middle: "do_nothing"
         on_right: "toggle_media_menu"
       max_field_size:
-        label: 24
-        label_alt: 24
+        label: 18
+        label_alt: 18
       show_thumbnail: true
       controls_only: false
       controls_left: false
       hide_empty: true
-      thumbnail_alpha: 80
+      thumbnail_alpha: 255
       thumbnail_padding: 80
       thumbnail_corner_radius: 0
       thumbnail_edge_fade: true
@@ -108,7 +108,7 @@ widgets:
       label_no_window: ""
       label_icon: true
       label_icon_size: 14
-      max_length: 56
+      max_length: 32
       max_length_ellipsis: "..."
       monitor_exclusive: true
   clock:
@@ -118,7 +118,15 @@ widgets:
       label_alt: "{%A, %d %B %Y %H:%M:%S}"
       timezones: []
       callbacks:
-        on_left: "toggle_label"
+        on_left: "toggle_calendar"
+        on_right: "toggle_label"
+      calendar:
+        blur: false
+        round_corners: true
+        round_corners_type: "normal"
+        border_color: "System"
+        alignment: "center"
+        direction: "down"
   komorebi_workspaces:
     type: "komorebi.workspaces.WorkspaceWidget"
     options:
@@ -230,8 +238,7 @@ widgets:
     type: "yasb.volume.VolumeWidget"
     options:
       label: "<span>{icon}</span> {level}"
-      label_alt: "{volume}"
-      tooltip: false
+      mute_text: ""
       volume_icons:
         - "\ueee8"
         - "\uf026"
@@ -240,19 +247,19 @@ widgets:
         - "\uf028"
       callbacks:
         on_left: "toggle_mute"
-        on_right: "exec cmd.exe /c start ms-settings:sound"
+        on_middle: "exec cmd.exe /c start ms-settings:sound"
+        on_right: "toggle_volume_menu"
   microphone:
     type: "yasb.microphone.MicrophoneWidget"
     options:
       label: "<span>{icon}</span> {level}"
-      label_alt: "<span>{icon}</span> {level}%"
       icons:
         normal: "\udb80\udf6c"
         muted: "\udb80\udf6d"
       callbacks:
         on_left: "toggle_mute"
-        on_middle: "toggle_label"
-        on_right: "exec cmd.exe /c start ms-settings:sound"
+        on_middle: "exec cmd.exe /c start ms-settings:sound"
+        on_right: "toggle_microphone_menu"
   power_menu:
     type: "yasb.power_menu.PowerMenuWidget"
     options:
@@ -281,7 +288,10 @@ widgets:
       app_list:
         - { icon: "\uf422", launch: "search" }
         - { icon: "\ueb03", launch: "cmd /c Taskmgr" }
-        - { icon: "\udb80\ude39", launch: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" }
+        - {
+            icon: "\udb80\ude39",
+            launch: "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+          }
   notifications:
     type: "yasb.notifications.NotificationsWidget"
     options:
@@ -293,3 +303,4 @@ widgets:
         on_left: "toggle_notification"
         on_right: "do_nothing"
         on_middle: "toggle_label"
+
