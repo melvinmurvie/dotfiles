@@ -312,9 +312,19 @@ QToolTip {
   font-size: 16px;
 }
 
+.microphone-widget .widget-container {
+  min-width: 52px;
+  max-width: 52px;
+}
+
 .microphone-widget .icon {
   color: var(--green);
   margin: 1px 2px 0 0;
+}
+
+.volume-widget .widget-container {
+  min-width: 52px;
+  max-width: 52px;
 }
 
 .volume-widget .icon {
@@ -365,6 +375,11 @@ QToolTip {
   background-color: var(--overlay0);
 }
 
+.notification-widget .widget-container {
+  min-width: 52px;
+  max-width: 52px;
+}
+
 .notification-widget .icon {
   color: var(--yellow);
   margin: 1px 2px 0 0;
@@ -383,6 +398,10 @@ QToolTip {
 .media-widget {
   padding: 0;
   margin: 0 2px;
+}
+
+.media-widget .widget-container {
+  max-width: 200px;
 }
 
 .media-widget .label {
@@ -426,6 +445,7 @@ QToolTip {
   font-size: 14px;
   font-weight: 600;
   margin-left: 10px;
+  background-color: transparent;
 }
 
 .media-menu .artist {
@@ -437,7 +457,7 @@ QToolTip {
 
 .media-menu .source {
   font-size: 11px;
-  color: #181926;
+  color: var(--crust);
   font-weight: normal;
   border-radius: 3px;
   background-color: var(--text);
@@ -482,6 +502,7 @@ QToolTip {
   color: var(--surface1);
   margin-top: 20px;
   min-width: 100px;
+  background-color: transparent;
 }
 
 .media-menu .progress-slider {
@@ -491,7 +512,6 @@ QToolTip {
 }
 
 .media-menu .progress-slider::groove {
-  background: transparent;
   height: 2px;
   border-radius: 3px;
   background: var(--base);
