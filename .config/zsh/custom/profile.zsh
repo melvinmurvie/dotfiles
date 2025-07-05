@@ -9,3 +9,8 @@ if (( ${+commands[oh-my-posh]} )); then
         eval "$(oh-my-posh init zsh)"
     fi
 fi
+
+# Activate 'mise' if installed
+if (( ${+commands[mise]} )); then
+  eval "$(mise activate zsh)"
+fi

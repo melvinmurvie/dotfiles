@@ -7,6 +7,7 @@ vars:
   WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
   INSTALL_DIR: ${HOME}/.local/bin
   TASKFILE_VERSION: v3.43.3
+  MISE_VERSION: 2025.6.5
   OH_MY_POSH_VERSION: v25.23.0
   GO_VERSION: 1.24.2
   NVM_VERSION: v0.40.3
@@ -27,6 +28,7 @@ tasks:
     cmds:
       - "[ -d {{.INSTALL_DIR}} ] && mkdir -p {{.INSTALL_DIR}}"
       - task: setup:webi
+      - task: setup:mise
       - task: setup:dev
 
   setup:taskfile:
@@ -38,6 +40,16 @@ tasks:
   setup:webi:
     cmd: curl -sS https://webi.sh/webi | sh
     status: [webi]
+
+  setup:mise:
+    env:
+      MISE_VERSION: "{{.MISE_VERSION}}"
+      MISE_INSTALL_PATH: "{{.INSTALL_DIR}}"
+    cmd: curl https://mise.run | sh
+    # NOTE: This won't work with environment variables passed in $() like this
+    #   status: ['[ "$(${MISE_INSTALL_PATH}/mise version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
+    # Therefore just use absolute path explicitly for ${MISE_INSTALL_PATH} variable
+    status: ['[ "$(~/.local/bin/mise version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
 
   setup:dev:
     deps:
