@@ -49,8 +49,14 @@ return {
   -- YAML https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/yaml
   { import = "astrocommunity.pack.yaml" },
 
+  -- SQL https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/sql
+  { import = "astrocommunity.pack.sql" },
+
   -- Templ https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/templ
   { import = "astrocommunity.pack.templ" },
+
+  -- Docker https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/docker
+  { import = "astrocommunity.pack.docker" },
 
   -- Git Diffview https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/git/diffview-nvim
   { import = "astrocommunity.git.diffview-nvim" },
