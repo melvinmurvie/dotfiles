@@ -1,10 +1,12 @@
 # Syntax highlighting
 #   Installed with `sudo apt install zsh-syntax-highlighting`.
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # sudo Auto suggestions
 #   Installed with `sudo apt install zsh-autosuggestions`.
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # History substring search, this need to set after `zsh-syntax-highlighting` otherwise it will cause some highlighting bug (flickering)
 #   Installed with omz but sourced manually.

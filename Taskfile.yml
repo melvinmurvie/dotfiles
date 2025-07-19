@@ -4,7 +4,7 @@ set: [errexit, nounset]
 
 vars:
   # WIN_USER_PROFILE: { sh: 'wslpath $(pwsh.exe -Command ''[Environment]::GetFolderPath("UserProfile")'')' }
-  WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
+  # WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
   INSTALL_DIR: ${HOME}/.local/bin
   TASKFILE_VERSION: v3.43.3
   MISE_VERSION: 2025.6.5
@@ -27,8 +27,8 @@ tasks:
     desc: Setup all.
     cmds:
       - "[ -d {{.INSTALL_DIR}} ] && mkdir -p {{.INSTALL_DIR}}"
-      - task: setup:webi
-      - task: setup:mise
+      # - task: setup:webi
+      # - task: setup:mise
       - task: setup:dev
 
   setup:taskfile:
@@ -53,7 +53,7 @@ tasks:
 
   setup:dev:
     deps:
-      - task: setup:apt
+      # - task: setup:apt
       - task: setup:tools
       - task: setup:go
       - task: setup:node
@@ -188,26 +188,29 @@ tasks:
       - task: _sync:oh-my-posh
       - task: _sync:nvim
       - task: _sync:tmux
-      - task: _sync:nvim
-        vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
-      - task: _sync:WindowsPowerShell
-        vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
-      - task: _sync:PowerShell
-        vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
-      - task: _sync:komorebi
-        vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
-      - task: _sync:yasb
-        vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
-      - task: _sync:alacritty
-        vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Roaming" }
+      - task: _sync:kitty
+      - task: _sync:hypr
+      - task: _sync:uwsm
+      # - task: _sync:nvim
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
+      # - task: _sync:WindowsPowerShell
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
+      # - task: _sync:PowerShell
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
+      # - task: _sync:komorebi
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
+      # - task: _sync:yasb
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
+      # - task: _sync:alacritty
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Roaming" }
       - task: _syncfile:.zshrc
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
         vars: { DIR: { sh: "echo ${HOME}" } }
-      - task: _syncfile:.inputrc
-        vars: { DIR: "{{.WIN_USER_PROFILE}}" }
-      - task: _syncfile:.config/whkdrc
-        vars: { DIR: "{{.WIN_USER_PROFILE}}" }
+      # - task: _syncfile:.inputrc
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
+      # - task: _syncfile:.config/whkdrc
+      #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
 
   _sync:*:
     vars:
