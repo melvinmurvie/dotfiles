@@ -28,7 +28,7 @@ tasks:
     cmds:
       - "[ -d {{.INSTALL_DIR}} ] && mkdir -p {{.INSTALL_DIR}}"
       # - task: setup:webi
-      # - task: setup:mise
+      - task: setup:mise
       - task: setup:dev
 
   setup:taskfile:
@@ -44,12 +44,9 @@ tasks:
   setup:mise:
     env:
       MISE_VERSION: "{{.MISE_VERSION}}"
-      MISE_INSTALL_PATH: "{{.INSTALL_DIR}}"
+      MISE_INSTALL_PATH: "{{.INSTALL_DIR}}/mise"
     cmd: curl https://mise.run | sh
-    # NOTE: This won't work with environment variables passed in $() like this
-    #   status: ['[ "$(${MISE_INSTALL_PATH}/mise version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
-    # Therefore just use absolute path explicitly for ${MISE_INSTALL_PATH} variable
-    status: ['[ "$(~/.local/bin/mise version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
+    status: ['[ "$(${MISE_INSTALL_PATH} version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
 
   setup:dev:
     deps:
