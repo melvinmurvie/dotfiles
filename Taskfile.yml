@@ -5,7 +5,7 @@ set: [errexit, nounset]
 vars:
   # WIN_USER_PROFILE: { sh: 'wslpath $(pwsh.exe -Command ''[Environment]::GetFolderPath("UserProfile")'')' }
   # WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
-  INSTALL_DIR: ${HOME}/.local/bin
+  INSTALL_DIR: { sh: "echo ${HOME}/.local/bin" }
   TASKFILE_VERSION: v3.43.3
   MISE_VERSION: 2025.6.5
   OH_MY_POSH_VERSION: v25.23.0
