@@ -11,7 +11,7 @@ vars:
   OH_MY_POSH_VERSION: v25.23.0
   GO_VERSION: 1.24.2
   NVM_VERSION: v0.40.3
-  NODE_VERSION: v20.12.0
+  NODE_VERSION: v22.17.1
   LAZYGIT_VERSION: 0.50.0
   LAZYDOCKER_VERSION: 0.24.1
   K9S_VERSION: v0.50.5
@@ -108,14 +108,18 @@ tasks:
 
   setup:node:
     deps: [setup:nvm]
-    cmds:
-      - echo "Installing node {{.NODE_VERSION}}"
+    cmd: |
+      echo "!!! MANUAL SETUP !!!
+      Run the following command:
+
+      nvm install {{.NODE_VERSION}} && nvm use {{.NODE_VERSION}}"
     status:
       - '[ $(node --version) = "{{.NODE_VERSION}}" ]'
 
   setup:nvm:
     cmds:
       - echo "Installing nvm {{.NVM_VERSION}}"
+      - mkdir -p ${HOME}/.nvm
       - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{.NVM_VERSION}}/install.sh | bash
     status:
       - 'test -n "${NVM_DIR}"'
