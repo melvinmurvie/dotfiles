@@ -58,6 +58,9 @@ return {
   -- Docker https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/docker
   { import = "astrocommunity.pack.docker" },
 
+  -- Hyprlang https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/hyprlang
+  { import = "astrocommunity.pack.hyprlang" },
+
   -- Git Diffview https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/git/diffview-nvim
   { import = "astrocommunity.git.diffview-nvim" },
 
