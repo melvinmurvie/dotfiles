@@ -192,6 +192,7 @@ tasks:
       - task: _sync:kitty
       - task: _sync:hypr
       - task: _sync:uwsm
+      - task: _sync:fontconfig
       # - task: _sync:nvim
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
       # - task: _sync:WindowsPowerShell
