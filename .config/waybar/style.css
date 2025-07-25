@@ -1,0 +1,143 @@
+@define-color rosewater #f4dbd6;
+@define-color flamingo #f0c6c6;
+@define-color pink #f5bde6;
+@define-color mauve #c6a0f6;
+@define-color red #ed8796;
+@define-color maroon #ee99a0;
+@define-color peach #f5a97f;
+@define-color yellow #eed49f;
+@define-color green #a6da95;
+@define-color teal #8bd5ca;
+@define-color sky #91d7e3;
+@define-color sapphire #7dc4e4;
+@define-color blue #8aadf4;
+@define-color lavender #b7bdf8;
+@define-color text #cad3f5;
+@define-color subtext1 #b8c0e0;
+@define-color subtext0 #a5adcb;
+@define-color overlay2 #939ab7;
+@define-color overlay1 #8087a2;
+@define-color overlay0 #6e738d;
+@define-color surface2 #5b6078;
+@define-color surface1 #494d64;
+@define-color surface0 #363a4f;
+@define-color base #24273a;
+@define-color mantle #1e2030;
+@define-color crust #181926;
+
+@define-color background @crust;
+@define-color border alpha(@lavender, 0.3);
+@define-color hover-background alpha(@mauve, 1);
+@define-color hover-foreground @crust;
+@define-color active-background alpha(@mauve, 1);
+@define-color active-foreground @crust;
+@define-color shadow alpha(@lavender, 0.3);
+
+@define-color battery-color @teal;
+@define-color temperature-color @rosewater;
+@define-color backlight-color @lavender;
+
+* {
+  all: unset;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  text-shadow: none;
+
+  font-size: 1rem;
+  font-weight: 900;
+  font-family: JetBrainsMonoNerdFont;
+}
+
+window#waybar {
+  /* background-color: alpha(@crust, 0.5); */
+  /* border: 2.5px solid @shadow; */
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+window#waybar.empty #window {
+  background-color: transparent;
+}
+
+button {
+  /* min-width: 32px; */
+  /* min-height: 32px; */
+  /* border-radius: 999px; */
+  border-radius: 3px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  /* box-shadow: 0px 0px 8px 4px @shadow inset; */
+  transition:
+    all 50ms cubic-bezier(0.55, 0, 0.28, 1.682),
+    box-shadow 50ms ease-in-out,
+    background-color 200ms ease-in-out;
+}
+
+button:hover {
+  color: @hover-foreground;
+  background: @hover-background;
+}
+
+button.active {
+  color: @active-foreground;
+  background: @active-background;
+}
+
+tooltip {
+  background: @background;
+  border: 2px solid @border;
+  border-radius: 8px;
+}
+
+#tray menu,
+#group-time,
+#group-media,
+#group-performance,
+#group-state,
+#group-hardware {
+  padding: 0 8px;
+  background-color: @background;
+  border-radius: 3px;
+}
+
+#pulse-audio,
+#cpu,
+#memory,
+#temperature,
+#network,
+#backlight,
+#battery {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+/* Colors */
+#battery {
+  color: @battery-color;
+}
+
+#temperature {
+  color: @temperature-color;
+}
+
+#backlight {
+  color: @backlight-color;
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+  margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+  margin-right: 0;
+}
