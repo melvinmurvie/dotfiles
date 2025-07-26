@@ -1,0 +1,8 @@
+theme = catppuccin-macchiato
+
+# Fix unreadable cursor text color from current theme
+cursor-text = #24273a
+
+font-size = 11
+
+background-opacity = 0.9

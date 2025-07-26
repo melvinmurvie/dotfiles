@@ -195,6 +195,7 @@ tasks:
       - task: _sync:fontconfig
       - task: _sync:waybar
       - task: _sync:wofi
+      - task: _sync:ghostty
       # - task: _sync:nvim
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
       # - task: _sync:WindowsPowerShell
