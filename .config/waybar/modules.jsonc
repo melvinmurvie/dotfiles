@@ -45,9 +45,9 @@
     "clock": {
         // Chrono format, see https://fmt.dev/latest/syntax/#chrono-format-specifications
         "interval": 1,
-        "format": "{:%T}",
-        "format-alt": "{:%F %T}",
-        "tooltip-format": "<big>{:%Y %B}</big>\n\n<tt>{calendar}</tt>",
+        "format": "{:%a, %d %b %T}",
+        // "format-alt": "{:%F %T}",
+        "tooltip-format": "<big>{:%Y\n%A, %d %B}</big>\n\n<tt>{calendar}</tt>",
         "calendar": {
             "mode": "month",
             "mode-mon-col": 3,
