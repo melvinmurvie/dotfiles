@@ -116,11 +116,13 @@
             "warning": 30,
             "critical": 15,
         },
-        "format": "{capacity}% {icon}",
-        "format-full": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
+        "min-length": 6,
+        "max-length": 6,
+        "format": "{icon} {capacity}%",
+        "format-full": "{icon} {capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-alt": "{icon} {time}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
         "format-icons": [
@@ -260,7 +262,7 @@
         "modules": [
             "temperature",
             // "backlight",
-            "battery"
+            "battery",
         ],
     },
     "group/group-tray": {
