@@ -25,6 +25,6 @@
         "group/group-performance",
         "group/group-hardware",
         "group/group-tray",
-        "custom/power",
+        "group/group-utility",
     ],
 }
