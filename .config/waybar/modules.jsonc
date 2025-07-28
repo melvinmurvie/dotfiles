@@ -73,6 +73,7 @@
         "tooltip-format": "Load: {load}\nUsage: {usage}\nFreq(min/max/avg): {min_frequency}/{max_frequency}/{avg_frequency}",
         "min-length": 5,
         "max-length": 5,
+        "on-click": "ghostty -e btop",
     },
     "memory": {
         "interval": 10,
@@ -80,6 +81,7 @@
         "tooltip-format": "Used: {used:0.2f}/{total:0.2f}GiB\nSwap: {swapUsed:0.2f}/{swapTotal:0.2f}GiB",
         "min-length": 6,
         "max-length": 6,
+        "on-click": "ghostty -e btop",
     },
     "temperature": {
         // "thermal-zone": 2,
