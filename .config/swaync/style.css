@@ -345,7 +345,7 @@ slider {
   font-size: 3rem;
 }
 
-.menu-button-bar :hover {
+.menu-button-bar button:hover {
   background: #363a4f;
   border-radius: 12px;
 }
@@ -369,7 +369,7 @@ slider {
 }
 
 .widget-menubar > revealer label {
-  font-size: 2rem;
+  font-size: 1.5rem;
   padding: 1rem 0;
 }
 
