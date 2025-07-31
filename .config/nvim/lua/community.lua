@@ -43,6 +43,9 @@ return {
   -- Tailwindcss https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/tailwindcss
   { import = "astrocommunity.pack.tailwindcss" },
 
+  -- Vue https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/vue
+  { import = "astrocommunity.pack.vue" },
+
   -- Terraform https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/terraform
   { import = "astrocommunity.pack.terraform" },
 
