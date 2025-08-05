@@ -6,4 +6,5 @@ cursor-text = #24273a
 font-family = JetBrainsMono Nerd Font
 font-size = 11
 
-background-opacity = 0.9
+background-opacity = 0.95
+background-blur = true
