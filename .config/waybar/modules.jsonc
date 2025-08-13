@@ -258,6 +258,10 @@
         "on-click-right": "swaync-client -d -sw",
         "escape": true,
     },
+    "custom/tray-icon": {
+        "format": "",
+        "tooltip": false,
+    },
     "group/group-time": {
         "orientation": "horizontal",
         "modules": [
@@ -281,8 +285,14 @@
         ],
     },
     "group/group-tray": {
-        "orientation": "horizontal",
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 600,
+            "children-class": "tray-group-item",
+            "transition-left-to-right": false,
+        },
         "modules": [
+            "custom/tray-icon",
             "tray"
         ],
     },

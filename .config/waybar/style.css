@@ -104,7 +104,8 @@ tooltip {
 #group-performance,
 #group-state,
 #group-hardware,
-#group-utility {
+#group-utility,
+#group-tray {
   padding: 0 8px;
   background-color: @background;
   border-radius: 3px;
