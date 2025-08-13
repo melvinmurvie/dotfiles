@@ -1,21 +1,34 @@
 # Hyprland
-export XCURSOR_SIZE=24
+# export XCURSOR_SIZE=24
 export HYPRCURSOR_SIZE=24
 
+# export NVD_BACKEND=direct
+
 # Nvidia https://wiki.hypr.land/Nvidia/
-export LIBVA_DRIVER_NAME=nvidia
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
+# export LIBVA_DRIVER_NAME=nvidia
+# export __GLX_VENDOR_LIBRARY_NAME=nvidia
+
+# https://wiki.hypr.land/Nvidia/#flickering-in-electron--cef-apps
+# export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # Multi GPU https://wiki.hypr.land/Configuring/Multi-GPU/
-export AQ_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
+# export AQ_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
+# export AQ_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0
+export AQ_DRM_DEVICES=/dev/dri/card1:/dev/dri/card2
+# export AQ_DRM_DEVICES=/dev/dri/card2:/dev/dri/card1
+
+# Nvidia specific environment variables https://wiki.hypr.land/Configuring/Environment-variables/#nvidia-specific
+# export AQ_FORCE_LINEAR_BLIT=0
+# export AQ_MGPU_NO_EXPLICIT=1
+# export AQ_NO_MODIFIERS=1
 
 # Input methods https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
-#export GTK_IM_MODULE=fcitx # Complained at the startup from fcitx maybe
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
-export SDL_IM_MODULE=fcitx
-export GLFW_IM_MODULE=ibus
-export INPUT_METHOD=fcitx
+# #export GTK_IM_MODULE=fcitx # Complained at the startup from fcitx maybe
+# export QT_IM_MODULE=fcitx
+# export XMODIFIERS=@im=fcitx
+# export SDL_IM_MODULE=fcitx
+# export GLFW_IM_MODULE=ibus
+# export INPUT_METHOD=fcitx
 
 # QT
-export QT_QPA_PLATFORMTHEME=qt5ct
+# export QT_QPA_PLATFORMTHEME=qt5ct

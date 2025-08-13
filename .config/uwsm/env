@@ -1,0 +1,16 @@
+export XCURSOR_SIZE=24
+
+# Nvidia https://wiki.hypr.land/Nvidia/
+export LIBVA_DRIVER_NAME=nvidia
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+
+# Input methods https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
+#export GTK_IM_MODULE=fcitx # Complained at the startup from fcitx maybe
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export SDL_IM_MODULE=fcitx
+export GLFW_IM_MODULE=ibus
+export INPUT_METHOD=fcitx
+
+# QT
+export QT_QPA_PLATFORMTHEME=qt5ct
