@@ -5,6 +5,9 @@ return {
     -- https://github.com/catppuccin/nvim?tab=readme-ov-file#configuration
     opts = {
       transparent_background = true,
+      float = {
+        transparent = true,
+      },
       integrations = {
         blink_cmp = true,
         diffview = true,
