@@ -27,7 +27,7 @@ tasks:
   setup:
     desc: Setup all.
     cmds:
-      - "[ -d {{.INSTALL_DIR}} ] && mkdir -p {{.INSTALL_DIR}}"
+      - "[ -d {{.INSTALL_DIR}} ] || mkdir -p {{.INSTALL_DIR}}"
       # - task: setup:webi
       - task: setup:mise
       - task: setup:dev
