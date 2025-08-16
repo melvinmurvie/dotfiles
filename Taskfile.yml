@@ -198,6 +198,14 @@ tasks:
       - task: _sync:ghostty
       - task: _sync:swaync
       - task: _sync:btop/themes
+      - task: _syncfile:.config/walker/config.toml
+        vars: { DIR: "~" }
+      - task: _syncfile:.config/walker/themes/default.css
+        vars: { DIR: "~" }
+      - task: _syncfile:.config/walker/themes/macchiato.css
+        vars: { DIR: "~" }
+      - task: _syncfile:.config/walker/themes/macchiato.toml
+        vars: { DIR: "~" }
       # - task: _sync:nvim
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
       # - task: _sync:WindowsPowerShell
