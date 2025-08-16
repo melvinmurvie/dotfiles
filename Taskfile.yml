@@ -3,6 +3,7 @@ version: "3"
 set: [errexit, nounset]
 
 vars:
+  DATA_HOME: { sh: "echo ${XDG_DATA_HOME:-~/.local/share}/fnf" }
   # WIN_USER_PROFILE: { sh: 'wslpath $(pwsh.exe -Command ''[Environment]::GetFolderPath("UserProfile")'')' }
   # WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
   INSTALL_DIR: { sh: "echo ${HOME}/.local/bin" }
@@ -226,15 +227,20 @@ tasks:
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
       # - task: _syncfile:.config/whkdrc
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
+      - task: _sync:bin
+        vars:
+          DIR: "{{.DATA_HOME}}"
+          SRC: "{{.ROOT_DIR}}/bin/"
 
   _sync:*:
     vars:
       CONFIG: "{{index .MATCH 0}}"
       DIR: '{{.DIR | default "${HOME}/.config"}}'
+      SRC: '{{.SRC | default (printf "%s/.config/%s/" .ROOT_DIR .CONFIG)}}'
     label: _sync:{{.CONFIG}}
     cmds:
-      - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}"
-      - rsync --quiet --recursive --delete {{.ROOT_DIR}}/.config/{{.CONFIG}}/ {{.DIR}}/{{.CONFIG}}/
+      - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}/"
+      - rsync --quiet --recursive --delete --mkpath {{.SRC}} {{.DIR}}/{{.CONFIG}}/
     internal: true
     ignore_error: true
 
