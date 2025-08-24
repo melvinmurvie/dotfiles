@@ -97,17 +97,20 @@
         "on-click": "ghostty -e btop",
     },
     "temperature": {
+        "interval": 5,
         // "thermal-zone": 2,
         // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
-        "min-length": 7,
-        "max-length": 7,
+        "min-length": 6,
+        "max-length": 6,
         "format": "{icon} {temperatureC}°C",
         "format-icons": [
-            "",
+            "",
+            "",
             "",
-            ""
+            "",
+            ""
         ],
     },
     "backlight": {
@@ -162,8 +165,8 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "interval": 1,
-        "min-length": 10,
-        "max-length": 10,
+        "min-length": 11,
+        "max-length": 11,
         "format": "󱘖 Offline",
         "format-wifi": "{icon} {bandwidthDownBytes}",
         "format-ethernet": " {bandwidthDownBytes}",
