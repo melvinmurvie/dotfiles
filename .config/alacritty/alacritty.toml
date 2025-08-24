@@ -3,9 +3,9 @@ import = [
   "./catppuccin-macchiato.toml"
 ]
 
-[terminal.shell]
-program = "C:\\WINDOWS\\system32\\wsl.exe"
-args = [ "--cd", "~" ]
+# [terminal.shell]
+# program = "C:\\WINDOWS\\system32\\wsl.exe"
+# args = [ "--cd", "~" ]
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
