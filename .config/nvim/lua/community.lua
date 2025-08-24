@@ -64,6 +64,9 @@ return {
   -- Hyprlang https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/hyprlang
   { import = "astrocommunity.pack.hyprlang" },
 
+  -- Bash https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/bash
+  { import = "astrocommunity.pack.bash" },
+
   -- Git Diffview https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/git/diffview-nvim
   { import = "astrocommunity.git.diffview-nvim" },
 
