@@ -3,7 +3,12 @@ version: "3"
 set: [errexit, nounset]
 
 vars:
-  DATA_HOME: { sh: "echo ${XDG_DATA_HOME:-~/.local/share}/fnf" }
+  DATA_HOME: { sh: "echo ${XDG_DATA_HOME:-~/.local/share}" }
+  CONFIG_HOME: { sh: "echo ${XDG_CONFIG_HOME:-~/.config}" }
+
+  FNF_DATA_DIR: "{{.DATA_HOME}}/fnf"
+  FNF_CONFIG_DIR: "{{.CONFIG_HOME}}/fnf"
+
   # WIN_USER_PROFILE: { sh: 'wslpath $(pwsh.exe -Command ''[Environment]::GetFolderPath("UserProfile")'')' }
   # WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
   INSTALL_DIR: { sh: "echo ${HOME}/.local/bin" }
@@ -55,6 +60,7 @@ tasks:
       - task: setup:tools
       - task: setup:go
       - task: setup:node
+      - task: setup:config
     cmds:
       - task: setup:oh-my-zsh
       - task: setup:oh-my-posh
@@ -66,6 +72,15 @@ tasks:
           LIST:
             - zsh
             - ripgrep
+
+  setup:config:
+    cmds:
+      - "[ -d {{.FNF_CONFIG_DIR}}/current ] || mkdir -p {{.FNF_CONFIG_DIR}}/current"
+
+      # Set up defaults
+      - "[ -d {{.FNF_CONFIG_DIR}}/current/theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-macchiato {{.FNF_CONFIG_DIR}}/current/theme"
+
+      # - "[ ! -f {{.FNF_CONFIG_DIR}}/current/themes/hyprland ]"
 
   _apt:
     requires:
@@ -199,6 +214,9 @@ tasks:
       - task: _sync:ghostty
       - task: _sync:swaync
       - task: _sync:btop/themes
+      - task: _sync:rofi
+      - task: _sync:alacritty
+        vars: { DIR: "~" }
       - task: _syncfile:.config/walker/config.toml
         vars: { DIR: "~" }
       - task: _syncfile:.config/walker/themes/default.css
@@ -223,24 +241,49 @@ tasks:
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
         vars: { DIR: { sh: "echo ${HOME}" } }
+      - task: _syncfile:.bash_profile
+        vars: { DIR: { sh: "echo ${HOME}" } }
       # - task: _syncfile:.inputrc
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
       # - task: _syncfile:.config/whkdrc
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
       - task: _sync:bin
         vars:
+          DIR: "{{.FNF_DATA_DIR}}"
+          SRC: "{{.ROOT_DIR}}/.local/share/bin/"
+      - task: _sync:themes
+        vars:
+          DIR: "{{.FNF_DATA_DIR}}"
+          SRC: "{{.ROOT_DIR}}/themes/"
+      - task: _sync:applications
+        vars:
           DIR: "{{.DATA_HOME}}"
-          SRC: "{{.ROOT_DIR}}/bin/"
+          SRC: "{{.ROOT_DIR}}/.local/share/applications/"
+          DELETE: "1"
+      - task: _sync:icons
+        vars:
+          DIR: "{{.DATA_HOME}}"
+          SRC: "{{.ROOT_DIR}}/.local/share/icons/"
+          DELETE: "0"
 
   _sync:*:
     vars:
       CONFIG: "{{index .MATCH 0}}"
-      DIR: '{{.DIR | default "${HOME}/.config"}}'
+      DIR: "{{.DIR | default .CONFIG_HOME}}"
       SRC: '{{.SRC | default (printf "%s/.config/%s/" .ROOT_DIR .CONFIG)}}'
+      DELETE: '{{.DELETE | default "1"}}'
     label: _sync:{{.CONFIG}}
     cmds:
       - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}/"
-      - rsync --quiet --recursive --delete --mkpath {{.SRC}} {{.DIR}}/{{.CONFIG}}/
+      - rsync
+        --quiet
+        --recursive
+        {{if eq .DELETE "1"}}
+        --delete
+        {{end}}
+        --mkpath
+        {{.SRC}}
+        {{.DIR}}/{{.CONFIG}}/
     internal: true
     ignore_error: true
 
