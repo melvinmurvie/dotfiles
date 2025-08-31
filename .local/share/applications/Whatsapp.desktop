@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Whatsapp
+Comment=Whatsapp
+Exec=brave --new-window --ozone-platform=wayland --app="https://web.whatsapp.com"
+Terminal=false
+Icon=Whatsapp
+StartupNotify=true

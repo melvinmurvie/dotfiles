@@ -12,10 +12,12 @@ export HYPRCURSOR_SIZE=24
 # export ELECTRON_OZONE_PLATFORM_HINT=auto
 
 # Multi GPU https://wiki.hypr.land/Configuring/Multi-GPU/
-# export AQ_DRM_DEVICES=/dev/dri/card0:/dev/dri/card1
-# export AQ_DRM_DEVICES=/dev/dri/card1:/dev/dri/card0
-export AQ_DRM_DEVICES=/dev/dri/card1:/dev/dri/card2
-# export AQ_DRM_DEVICES=/dev/dri/card2:/dev/dri/card1
+#
+# Need manual setup for consistent and reliable symlinks.
+# Run ./setup-gpu.sh
+#
+# export AQ_DRM_DEVICES=/dev/dri/card1:/dev/dri/card2
+export AQ_DRM_DEVICES=/dev/dri/nvidia:/dev/dri/intel
 
 # Nvidia specific environment variables https://wiki.hypr.land/Configuring/Environment-variables/#nvidia-specific
 # export AQ_FORCE_LINEAR_BLIT=0

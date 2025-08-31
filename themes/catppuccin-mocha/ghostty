@@ -1,0 +1,4 @@
+theme = catppuccin-mocha
+
+# Fix unreadable cursor text color from current theme
+cursor-text = #1e1e2e

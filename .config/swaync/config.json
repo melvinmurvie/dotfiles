@@ -74,7 +74,6 @@
       "text": "Label Text"
     },
     "mpris": {
-      "image-size": 100,
       "show-album-art": "always",
       "loop-carousel": false
     },
@@ -107,7 +106,7 @@
     },
     "menubar": {
       "menu": {
-        "label": " ",
+        "label": "",
         "position": "left",
         "actions": [
           {

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Instagram
+Comment=Instagram
+Exec=brave --new-window --app="https://instagram.com"
+Terminal=false
+Icon=Instagram
+StartupNotify=true

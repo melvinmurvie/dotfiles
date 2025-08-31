@@ -1,0 +1,329 @@
+#!/bin/bash
+
+set -euo pipefail
+
+FILENAME="$(basename "$0")"
+VERSION="latest"
+TERMINAL=${TERMINAL:-"ghostty"}
+FNF_DATA_DIR=${XDG_DATA_HOME:-~/.local/share}/fnf
+FNF_CONFIG_DIR=${XDG_CONFIG_HOME:-~/.config}/fnf
+
+export PATH="${FNF_DATA_DIR}/bin:$PATH"
+
+version() {
+  printf '%s\n' "$VERSION"
+}
+
+terminal() {
+  ${TERMINAL} -e "$@"
+}
+
+help() {
+  cat <<EOF
+Usage: ${FILENAME} <command> [flags]
+
+A tool for desktop menu.
+
+Flags:
+  -h, --help       Show this help information.
+  -v, --version    Print the version number.
+
+Commands:
+  show        Show menus.
+  reload      Reload configurations.
+  run         Run utility commands.
+
+Run "${FILENAME} <command> --help" for more information on a command.
+
+EOF
+}
+
+show_help() {
+  cat <<EOF
+Usage: ${FILENAME} show <command> [flags]
+
+Show desktop-related menu.
+
+Flags:
+  -h, --help    Show this help information.
+
+Commands:
+  main       Show the main menu.
+
+EOF
+}
+
+show_main_cmd() {
+  local selected=""
+
+  selected=$(echo -e "About\nApplication\nEmoji\nTheme\nWallpaper" |
+    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "System:")
+
+  case "$selected" in
+  *About*) gtk-launch About.desktop ;;
+  *Application*) drun_cmd ;;
+  *Emoji*) emojipicker_cmd ;;
+  *Theme*) themepicker_cmd ;;
+  *Wallpaper*) wallpicker_cmd ;;
+  *) log_error "Unknown selection: $selected" ;;
+  esac
+}
+
+show_cmd() {
+  if [[ "$#" -lt 1 || "$1" = "-h" || "$1" = "--help" ]]; then
+    show_help
+    return 0
+  fi
+
+  cmd="$1"
+  case "$cmd" in
+  main) show_main_cmd ;;
+  -h | --help) show_help ;;
+  *) log_error "Unknown command: $cmd" && show_help && exit 2 ;;
+  esac
+}
+
+reload_help() {
+  cat <<EOF
+Usage: ${FILENAME} reload <command> [flags]
+
+Reload a configuration.
+
+Flags:
+  -h, --help    Show this help information.
+
+Commands:
+  ghostty   Reload all of Ghostty configuration in every windows.
+  hyprland  Reload Hyprland configuration.
+  waybar    Reload waybar configuration and style.
+
+EOF
+}
+
+reload_cmd() {
+  if [[ "$#" -lt 1 || "$1" = "-h" || "$1" = "--help" ]]; then
+    reload_help
+    return 0
+  fi
+
+  cmd="$1"
+  case "$cmd" in
+  ghostty) reload_ghostty_cmd ;;
+  hyprland) reload_hyprland_cmd ;;
+  waybar) reload_waybar_cmd ;;
+  -h | --help) reload_help ;;
+  *) log_error "Unknown command: $cmd" && reload_help && exit 2 ;;
+  esac
+}
+
+run_help() {
+  cat <<EOF
+Usage: ${FILENAME} run <command> [flags]
+
+Run desktop utility command.
+
+Flags:
+  -h, --help    Show this help information.
+
+Commands:
+  about           Show system informations.
+  emoji           Launch emoji picker.
+  theme           Launch theme picker.
+  wallpaper       Launch wallpaper picker.
+
+EOF
+}
+
+run_cmd() {
+  if [[ "$#" -lt 1 || "$1" = "-h" || "$1" = "--help" ]]; then
+    run_help
+    return 0
+  fi
+
+  cmd="$1"
+  case "$cmd" in
+  about) about_cmd ;;
+  drun) drun_cmd ;;
+  emoji) emojipicker_cmd ;;
+  wallpaper) wallpicker_cmd ;;
+  theme) themepicker_cmd ;;
+  -h | --help) run_help ;;
+  *) log_error "Unknown command: $cmd" && run_help && exit 2 ;;
+  esac
+}
+
+about_cmd() {
+  # terminal 'fastfetch; read -n 1 -s'
+  gtk-launch About.desktop
+}
+
+wallpicker_cmd() {
+  local current=""
+  local selected_idx=0
+  local list=()
+
+  mapfile -d '' list < <(find \
+    ~/Pictures \
+    "${FNF_CONFIG_DIR}/current/theme/wallpapers" \
+    -type f \
+    -print0 \
+    -name "*.png" -o -name "*.jpg" -o -name "*jpeg" |
+    sort --zero-terminated --reverse)
+
+  if [[ -L "${FNF_CONFIG_DIR}/current/wallpaper" ]]; then
+    current=$(readlink "${FNF_CONFIG_DIR}/current/wallpaper")
+
+    local i=0
+    for data in "${list[@]}"; do
+      if [[ "${current}" == "${data}" ]]; then
+        selected_idx="${i}"
+        break
+      fi
+      ((i += 1))
+    done
+  fi
+
+  local dmenu=""
+  dmenu=$(
+    IFS=$'\n'
+    echo "${list[*]}"
+  )
+
+  local args=()
+  args=("-dmenu" "-i" "-p" "Wallpaper:" "-selected-row" "${selected_idx}")
+
+  if [[ "${current}" != "" ]]; then
+    args=("${args[@]}" "-a" "${selected_idx}" -mesg "Current wallpaper: ${current}")
+  fi
+
+  local selected=""
+  selected=$(
+    # Icon setup for rofi to render
+    while IFS= read -r entry; do
+      echo -en "${entry}\x00icon\x1f${entry}\n"
+    done <<<"${dmenu}" |
+      ROFI_WINDOW_WIDTH=900 \
+        ROFI_PREVIEW=true \
+        rofi "${args[@]}"
+  )
+
+  if [[ "${selected}" != "" ]] && [[ "${current}" != "${selected}" ]]; then
+    log_info "Changing wallpaper from ${current} to ${selected}"
+
+    ln -snf "${selected}" "${FNF_CONFIG_DIR}/current/wallpaper"
+    hyprctl hyprpaper reload ,"$selected" >/dev/null
+  fi
+}
+
+themepicker_cmd() {
+  local current=""
+
+  [ -h "${FNF_CONFIG_DIR}/current/theme" ] && current=$(readlink "${FNF_CONFIG_DIR}/current/theme")
+
+  local list=()
+
+  mapfile -d '' list < <(find \
+    "${FNF_DATA_DIR}/themes" \
+    -maxdepth 1 \
+    -mindepth 1 \
+    -print0 |
+    sort)
+
+  local selected_idx=0
+
+  if [[ "${current}" != "" ]]; then
+    local i=0
+    for data in "${list[@]}"; do
+      if [[ "${current}" == "${data}" ]]; then
+        selected_idx="${i}"
+        break
+      fi
+      ((i += 1))
+    done
+  fi
+
+  local dmenu=""
+  dmenu=$(
+    IFS=$'\n'
+    echo "${list[*]}"
+  )
+
+  local args=()
+  args=("-dmenu" "-i" "-p" "Theme:" "-selected-row" "${selected_idx}")
+
+  if [[ "${current}" != "" ]]; then
+    args=("${args[@]}" "-a" "${selected_idx}" "-mesg" "Current theme: ${current}")
+  fi
+
+  local selected=""
+  selected=$(echo -en "${dmenu}" | rofi "${args[@]}")
+
+  if [[ "${current}" != "${selected}" ]]; then
+    log_info "Changing theme from ${current} to ${selected}"
+
+    ln -snf "${selected}" "${FNF_CONFIG_DIR}/current/theme"
+    reload_ghostty_cmd
+    reload_waybar_cmd
+    reload_hyprland
+  fi
+}
+
+drun_cmd() {
+  rofi -show drun -i
+}
+
+emojipicker_cmd() {
+  ROFI_ELEMENT_ICON_SIZE=0 \
+    rofi -show emoji -i
+}
+
+reload_ghostty_cmd() {
+  local keybind=""
+  local addresses=()
+  keybind="CTRL SHIFT, comma"
+  mapfile -t addresses < <(hyprctl clients -j | jq -r '.[] | select(.class == "com.mitchellh.ghostty") | .address')
+
+  for address in "${addresses[@]}"; do
+    hyprctl dispatch sendshortcut "${keybind}, address:${address}" >/dev/null
+  done
+}
+
+reload_hyprland() {
+  hyprctl reload
+}
+
+reload_waybar_cmd() {
+  pkill -SIGUSR2 waybar
+}
+
+# -----------------------
+# Helpers
+# -----------------------
+log_info() { printf "$(date '+%Y-%m-%d %H:%M:%S.%3N') INFO: %s\n" "$*"; }
+log_error() { printf "$(date '+%Y-%m-%d %H:%M:%S.%3N') ERROR: %s\n" "$*" >&2; }
+
+main() {
+  if [ $# -eq 0 ]; then
+    help
+    return 0
+  fi
+
+  # Global flags may appear before command
+  case "$1" in
+  -h | --help) help ;;
+  -v | --version) version ;;
+  esac
+
+  cmd="$1"
+
+  case "$cmd" in
+  show) show_cmd "${@:2}" ;;
+  reload) reload_cmd "${@:2}" ;;
+  run) run_cmd "${@:2}" ;;
+  -h | --help) help ;;
+  -v | --version) version ;;
+  *) log_error "Unknown command: $cmd" && help && exit 2 ;;
+  esac
+}
+
+main "$@"

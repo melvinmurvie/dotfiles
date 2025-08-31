@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=About
+Comment=System information from Fastfetch
+Exec=ghostty --class=About --title=About -e bash -c "fastfetch; read -n 1 -s"
+Terminal=false
+Icon=Arch
+StartupNotify=false

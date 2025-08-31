@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LINE
+Comment=LINE
+Exec=brave --new-window --app="chrome-extension://ophjlpahpchlmihnnnihgmmeilfjmjjc/index.html"
+Terminal=false
+Icon=LINE
+StartupNotify=true

@@ -1,0 +1,35 @@
+configuration {
+  show-icons: true;
+  modes: "drun,emoji";
+  font: "JetBrainsMono Nerd Font";
+  timeout {
+    action: "kb-cancel";
+    delay:  0;
+  }
+  drun {
+    display-name: "Application:";
+  }
+  emoji {
+    display-name: "Emoji:";
+  }
+  filebrowser {
+    directories-first: true;
+    sorting-method:    "name";
+  }
+  kb-accept-entry: "Control+m,Return,KP_Enter";
+  kb-remove-to-eol: "";
+  kb-remove-to-sol: "";
+  kb-remove-char-back: "BackSpace,Shift+BackSpace";
+  kb-remove-char-forward: "Delete";
+  kb-remove-word-back: "Control+BackSpace,Control+w";
+  kb-clear-line: "";
+  kb-mode-complete: "";
+  kb-row-left: "Control+h";
+  kb-row-right: "Control+l";
+  kb-row-up: "Up,Control+p,Control+k";
+  kb-row-down: "Down,Control+n,Control+j";
+  kb-page-prev: "Page_Up,Control+u";
+  kb-page-next: "Page_Down,Control+d";
+}
+
+@theme "~/.config/rofi/menu.rasi"

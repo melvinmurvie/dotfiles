@@ -1,7 +1,4 @@
-theme = catppuccin-macchiato
-
-# Fix unreadable cursor text color from current theme
-cursor-text = #24273a
+config-file = ~/.config/fnf/current/theme/ghostty
 
 font-family = JetBrainsMono Nerd Font
 font-size = 11

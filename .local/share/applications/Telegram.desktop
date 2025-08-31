@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Telegram
+Comment=Telegram
+Exec=brave --new-window --app="https://web.telegram.org"
+Terminal=false
+Icon=Telegram
+StartupNotify=true
