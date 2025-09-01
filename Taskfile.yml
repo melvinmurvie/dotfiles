@@ -80,7 +80,8 @@ tasks:
       # Set up defaults
       - "[ -d {{.FNF_CONFIG_DIR}}/current/theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-macchiato {{.FNF_CONFIG_DIR}}/current/theme"
 
-      # - "[ ! -f {{.FNF_CONFIG_DIR}}/current/themes/hyprland ]"
+      - "[ -d {{.CONFIG_HOME}}/btop/themes ] || mkdir -p {{.CONFIG_HOME}}/btop/themes"
+      - "[ -f {{.CONFIG_HOME}}/btop/themes/current.theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-macchiato/btop.theme {{.CONFIG_HOME}}/btop/themes/current.theme"
 
   _apt:
     requires:
@@ -213,7 +214,6 @@ tasks:
       - task: _sync:wofi
       - task: _sync:ghostty
       - task: _sync:swaync
-      - task: _sync:btop/themes
       - task: _sync:rofi
       - task: _sync:alacritty
         vars: { DIR: "~" }

@@ -5,8 +5,10 @@ set -euo pipefail
 FILENAME="$(basename "$0")"
 VERSION="latest"
 TERMINAL=${TERMINAL:-"ghostty"}
-FNF_DATA_DIR=${XDG_DATA_HOME:-~/.local/share}/fnf
-FNF_CONFIG_DIR=${XDG_CONFIG_HOME:-~/.config}/fnf
+CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
+DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
+FNF_CONFIG_DIR=${CONFIG_HOME}/fnf
+FNF_DATA_DIR=${DATA_HOME}/fnf
 
 export PATH="${FNF_DATA_DIR}/bin:$PATH"
 
@@ -262,6 +264,9 @@ themepicker_cmd() {
     log_info "Changing theme from ${current} to ${selected}"
 
     ln -snf "${selected}" "${FNF_CONFIG_DIR}/current/theme"
+
+    ln -snf "${selected}/btop.theme" "${CONFIG_HOME}/btop/themes/current.theme"
+
     reload_ghostty_cmd
     reload_waybar_cmd
     reload_hyprland
