@@ -25,4 +25,26 @@
 @define-color mantle #181825;
 @define-color crust #11111b;
 
-@define-color menu-button-bar-hover-color @sapphire;
+@define-color foreground @text;
+@define-color background @base;
+@define-color light-foreground @text;
+@define-color light-background @mantle;
+@define-color dark-foreground @text;
+@define-color dark-background @crust;
+@define-color active-foreground @blue;
+@define-color active-background @base;
+@define-color critical-foreground @background;
+@define-color critical-background @red;
+@define-color surface-foreground @text;
+@define-color surface-background @surface0;
+@define-color hover-foreground @light-background;
+@define-color hover-background @light-foreground;
+@define-color hover-surface-foreground @surface-foreground;
+@define-color hover-surface-background @surface1;
+@define-color hover-critical-foreground @background;
+@define-color hover-critical-background @maroon;
+@define-color active-critical-foreground @background;
+@define-color active-critical-background @pink;
+@define-color active-surface-foreground @surface-foreground;
+@define-color active-surface-background @surface2;
+@define-color active-color @blue;
