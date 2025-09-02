@@ -269,7 +269,7 @@ themepicker_cmd() {
 
     reload_ghostty_cmd
     reload_waybar_cmd
-    reload_hyprland
+    reload_hyprland_cmd
   fi
 }
 
@@ -293,7 +293,7 @@ reload_ghostty_cmd() {
   done
 }
 
-reload_hyprland() {
+reload_hyprland_cmd() {
   hyprctl reload
 }
 
