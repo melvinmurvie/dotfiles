@@ -270,6 +270,7 @@ themepicker_cmd() {
     reload_ghostty_cmd
     reload_waybar_cmd
     reload_hyprland_cmd
+    reload_swaync_cmd
   fi
 }
 
@@ -299,6 +300,10 @@ reload_hyprland_cmd() {
 
 reload_waybar_cmd() {
   pkill -SIGUSR2 waybar
+}
+
+reload_swaync_cmd() {
+  swaync-client --reload-css
 }
 
 # -----------------------
