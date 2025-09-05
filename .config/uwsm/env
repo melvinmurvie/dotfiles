@@ -13,4 +13,4 @@ export GLFW_IM_MODULE=ibus
 export INPUT_METHOD=fcitx
 
 # QT
-export QT_QPA_PLATFORMTHEME=qt5ct
+export QT_STYLE_OVERRIDE=kvantum
