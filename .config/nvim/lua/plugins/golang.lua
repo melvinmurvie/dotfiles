@@ -9,6 +9,7 @@ local gopls_settings = {
   gofumpt = false,
   analyses = {
     ST1003 = false,
+    ST1000 = false,
     shadow = false,
   },
 }
