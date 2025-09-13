@@ -64,6 +64,7 @@ Application
 Emoji
 Theme
 Wallpaper
+Install/Uninstall
 System
 EOL
   )
@@ -74,6 +75,7 @@ EOL
   *Emoji*) emojipicker_cmd ;;
   *Theme*) themepicker_cmd ;;
   *Wallpaper*) wallpicker_cmd ;;
+  *Install/Uninstall*) show_install_cmd ;;
   *System*) show_system_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
@@ -92,6 +94,76 @@ show_system_cmd() {
   "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
+}
+
+show_install_cmd() {
+  local selected=""
+  selected=$(echo -e "Web App" |
+    ROFI_WINDOW_WIDTH=300 rofi -dmenu -i -p "Install/Uninstall:") || selected=""
+
+  case "$selected" in
+  *Web\ App*) show_install_webapp_cmd ;;
+  "") show_main_cmd ;;
+  *) log_error "Unknown selection: $selected" ;;
+  esac
+}
+
+show_install_webapp_cmd() {
+  local selected=""
+  selected=$(echo -e "Install" |
+    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Web app:") || selected=""
+
+  case "${selected}" in
+  *Install*) install_webapp_cmd ;;
+  "") show_install_cmd ;;
+  *) log_error "Unknown selection: $selected" ;;
+  esac
+}
+
+install_webapp_cmd() {
+  local app_name=""
+  local app_url=""
+  local app_icon=""
+  app_name=$(zenity --entry --text="App name:" --entry-text="My App" --title="Install Web App")
+  app_url=$(zenity --entry --text="App URL:" --entry-text="https://example.com" --title="Install Web App")
+  app_icon=$(zenity --entry --text="App icon URL:" --entry-text="Must use PNG!" --title="Install Web App" --width 400 --extra-button="Choose file..." || true)
+
+  if [[ -z "${app_name}" || -z "${app_url}" || -z "${app_icon}" ]]; then
+    log_error "App name, URL, or icon cannot be empty"
+    return 1
+  fi
+
+  local install_desktop_file="${DATA_HOME}/applications/${app_name}.desktop"
+  local install_icon_dir="${DATA_HOME}/applications/icons"
+  local icon_path=""
+
+  if [[ "${app_icon}" == "Choose file..." ]]; then
+    icon_path=$(zenity --file-selection --file-selection --file-filter="PNG files | *.png" --title="Install Web App")
+  else
+    local icon_ext="${app_icon##*.}"
+    icon_path="${install_icon_dir}/${app_name}.${icon_ext}"
+
+    if ! curl -sLo "${icon_path}" "${app_icon}"; then
+      log_error "Failed to download icon from ${app_icon}"
+      return 1
+    fi
+  fi
+
+  mkdir -p "${install_icon_dir}"
+
+  cat >"${install_desktop_file}" <<EOF
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=${app_name}
+Comment=${app_name}
+Exec=brave --new-window --app="${app_url}"
+Terminal=false
+Icon=${icon_path}
+StartupNotify=true
+EOF
+
+  notify-send --icon="${icon_path}" "${app_name} (web app) has successfully installed."
 }
 
 show_cmd() {
