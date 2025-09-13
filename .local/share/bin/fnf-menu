@@ -57,8 +57,7 @@ EOF
 
 show_main_cmd() {
   local selected=""
-
-  selected=$(echo -e "About\nApplication\nEmoji\nTheme\nWallpaper" |
+  selected=$(echo -e "About\nApplication\nEmoji\nTheme\nWallpaper\nSystem" |
     ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "System:")
 
   case "$selected" in
@@ -67,6 +66,22 @@ show_main_cmd() {
   *Emoji*) emojipicker_cmd ;;
   *Theme*) themepicker_cmd ;;
   *Wallpaper*) wallpicker_cmd ;;
+  *System*) show_system_cmd ;;
+  *) log_error "Unknown selection: $selected" ;;
+  esac
+}
+
+show_system_cmd() {
+  local selected=""
+  selected=$(echo -e "Poweroff\nReboot\nLock\nExit" |
+    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "System:") || selected=""
+
+  case "$selected" in
+  *Poweroff*) systemctl poweroff ;;
+  *Reboot*) systemctl reboot ;;
+  *Lock*) hyprlock ;;
+  *Exit*) uwsm stop ;;
+  "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
 }
