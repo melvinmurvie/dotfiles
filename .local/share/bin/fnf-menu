@@ -58,7 +58,7 @@ EOF
 show_main_cmd() {
   local selected=""
   selected=$(echo -e "About\nApplication\nEmoji\nTheme\nWallpaper\nSystem" |
-    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "System:")
+    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Menu:")
 
   case "$selected" in
   *About*) gtk-launch About.desktop ;;
