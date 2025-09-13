@@ -259,7 +259,7 @@ tasks:
         vars:
           DIR: "{{.DATA_HOME}}"
           SRC: "{{.ROOT_DIR}}/.local/share/applications/"
-          DELETE: "1"
+          DELETE: "0"
       - task: _sync:icons
         vars:
           DIR: "{{.DATA_HOME}}"
