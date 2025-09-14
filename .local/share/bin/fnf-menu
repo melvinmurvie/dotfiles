@@ -193,6 +193,7 @@ Commands:
   ghostty   Reload all of Ghostty configuration in every windows.
   hyprland  Reload Hyprland configuration.
   waybar    Reload waybar configuration and style.
+  tmux      Reload tmux configuration.
 
 EOF
 }
@@ -208,6 +209,7 @@ reload_cmd() {
   ghostty) reload_ghostty_cmd ;;
   hyprland) reload_hyprland_cmd ;;
   waybar) reload_waybar_cmd ;;
+  tmux) reload_tmux_cmd ;;
   -h | --help) reload_help ;;
   *) log_error "Unknown command: $cmd" && reload_help && exit 2 ;;
   esac
@@ -366,6 +368,7 @@ themepicker_cmd() {
     reload_waybar_cmd
     reload_hyprland_cmd
     reload_swaync_cmd
+    reload_tmux_cmd
   fi
 }
 
@@ -399,6 +402,12 @@ reload_waybar_cmd() {
 
 reload_swaync_cmd() {
   swaync-client --reload-css
+}
+
+reload_tmux_cmd() {
+  if tmux list-sessions >/dev/null 2>&1; then
+    tmux source-file "${CONFIG_HOME}/tmux/tmux.conf"
+  fi
 }
 
 # -----------------------
