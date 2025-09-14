@@ -206,6 +206,8 @@ tasks:
       - task: _sync:oh-my-posh
       - task: _sync:nvim
       - task: _sync:tmux
+        vars:
+          DELETE: "0"
       - task: _sync:kitty
       - task: _sync:hypr
       - task: _sync:uwsm
