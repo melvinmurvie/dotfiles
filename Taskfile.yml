@@ -219,6 +219,8 @@ tasks:
       - task: _sync:rofi
       - task: _sync:alacritty
         vars: { DIR: "~" }
+      - task: _syncfile:.config/btop/btop.conf
+        vars: { DIR: "~" }
       - task: _syncfile:.config/walker/config.toml
         vars: { DIR: "~" }
       - task: _syncfile:.config/walker/themes/default.css
