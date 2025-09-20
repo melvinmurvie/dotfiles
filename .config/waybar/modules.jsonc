@@ -88,8 +88,8 @@
             "█"
         ],
         "tooltip-format": "Load: {load}\nUsage: {usage}\nFreq(min/max/avg): {min_frequency}/{max_frequency}/{avg_frequency}",
-        "min-length": 5,
-        "max-length": 5,
+        "min-length": 6,
+        "max-length": 6,
         "on-click": "ghostty -e btop",
     },
     "memory": {
