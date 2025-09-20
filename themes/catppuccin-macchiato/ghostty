@@ -1,4 +1,4 @@
-theme = catppuccin-macchiato
+theme = Catppuccin Macchiato
 
 # Fix unreadable cursor text color from current theme
 cursor-text = #24273a
