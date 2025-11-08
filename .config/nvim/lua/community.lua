@@ -119,11 +119,11 @@ return {
   -- Still testing on using both AI chat integrations below
   --
   -- Copilot Chat https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/editing-support/copilotchat-nvim
-  { import = "astrocommunity.editing-support.copilotchat-nvim" },
+  -- { import = "astrocommunity.editing-support.copilotchat-nvim" },
 
   -- CodeCompanion https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/editing-support/codecompanion-nvim
-  { import = "astrocommunity.editing-support.codecompanion-nvim" },
+  -- { import = "astrocommunity.editing-support.codecompanion-nvim" },
 
   -- Copilot completion (lua), the Copilot lua itself is already installed with Copilot Chat as dependency https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/completion/copilot-lua-cmp
-  { import = "astrocommunity.completion.copilot-lua-cmp" },
+  -- { import = "astrocommunity.completion.copilot-lua-cmp" },
 }
