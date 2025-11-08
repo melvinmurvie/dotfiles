@@ -18,7 +18,7 @@ export TMUX_PLUGIN_MANAGER_PATH=~/.tmux/plugins
 export EDITOR="nvim"
 
 # Set default terminal emulator, some applications may use this
-export TERMINAL="ghostty"
+export TERMINAL="kitty"
 
 # Activate 'oh-my-posh' if Installed
 if (( ${+commands[oh-my-posh]} )); then

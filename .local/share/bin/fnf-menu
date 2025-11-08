@@ -4,7 +4,7 @@ set -euo pipefail
 
 FILENAME="$(basename "$0")"
 VERSION="latest"
-TERMINAL=${TERMINAL:-"ghostty"}
+TERMINAL=${TERMINAL:-"kitty"}
 CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
 FNF_CONFIG_DIR=${CONFIG_HOME}/fnf
