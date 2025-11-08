@@ -192,6 +192,7 @@ Flags:
 Commands:
   ghostty   Reload all of Ghostty configuration in every windows.
   hyprland  Reload Hyprland configuration.
+  kitty     Reload Kitty configuration.
   waybar    Reload waybar configuration and style.
   tmux      Reload tmux configuration.
 
@@ -207,6 +208,7 @@ reload_cmd() {
   cmd="$1"
   case "$cmd" in
   ghostty) reload_ghostty_cmd ;;
+  kitty) reload_kitty_cmd ;;
   hyprland) reload_hyprland_cmd ;;
   waybar) reload_waybar_cmd ;;
   tmux) reload_tmux_cmd ;;
@@ -365,6 +367,7 @@ themepicker_cmd() {
     ln -snf "${selected}/btop.theme" "${CONFIG_HOME}/btop/themes/current.theme"
 
     reload_ghostty_cmd
+    reload_kitty_cmd
     reload_waybar_cmd
     reload_hyprland_cmd
     reload_swaync_cmd
@@ -390,6 +393,10 @@ reload_ghostty_cmd() {
   for address in "${addresses[@]}"; do
     hyprctl dispatch sendshortcut "${keybind}, address:${address}" >/dev/null
   done
+}
+
+reload_kitty_cmd() {
+  pkill --exact -SIGUSR1 kitty
 }
 
 reload_hyprland_cmd() {
