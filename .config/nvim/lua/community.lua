@@ -126,4 +126,7 @@ return {
 
   -- Copilot completion (lua), the Copilot lua itself is already installed with Copilot Chat as dependency https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/completion/copilot-lua-cmp
   -- { import = "astrocommunity.completion.copilot-lua-cmp" },
+
+  -- OpenCode https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/ai/opencode-nvim
+  { import = "astrocommunity.ai.opencode-nvim" },
 }

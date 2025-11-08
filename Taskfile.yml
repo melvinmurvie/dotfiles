@@ -229,6 +229,9 @@ tasks:
         vars: { DIR: "~" }
       - task: _syncfile:.config/walker/themes/macchiato.toml
         vars: { DIR: "~" }
+      - task: _sync:opencode/agent
+      - task: _syncfile:.config/opencode/opencode.json
+        vars: { DIR: "~" }
       # - task: _sync:nvim
       #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
       # - task: _sync:WindowsPowerShell
