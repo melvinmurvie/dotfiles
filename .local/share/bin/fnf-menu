@@ -163,7 +163,7 @@ Icon=${icon_path}
 StartupNotify=true
 EOF
 
-  notify-send --icon="${icon_path}" "${app_name} (web app) has successfully installed."
+  notify-send --icon="${icon_path}" "${app_name} (web app)" "${app_name} has successfully installed."
 }
 
 show_cmd() {
