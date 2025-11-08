@@ -70,6 +70,9 @@ return {
   -- Bash https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/bash
   { import = "astrocommunity.pack.markdown" },
 
+  -- Rust https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/rust
+  { import = "astrocommunity.pack.rust" },
+
   -- Git Diffview https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/git/diffview-nvim
   { import = "astrocommunity.git.diffview-nvim" },
 
