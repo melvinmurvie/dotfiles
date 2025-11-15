@@ -71,13 +71,13 @@ ZSH_CUSTOM=$HOME/.config/zsh/custom
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    vi-mode
-    git
-    kubectl
-    docker
-    fzf
-    history
-    #history-substring-search # Source this to our ZSH_CUSTOM instead!
+  vi-mode
+  git
+  kubectl
+  docker
+  fzf
+  history
+  #history-substring-search # Source this to our ZSH_CUSTOM instead!
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -110,11 +110,10 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
