@@ -73,6 +73,9 @@ return {
   -- Rust https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/rust
   { import = "astrocommunity.pack.rust" },
 
+  -- Svelte https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/svelte
+  { import = "astrocommunity.pack.svelte" },
+
   -- Git Diffview https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/git/diffview-nvim
   { import = "astrocommunity.git.diffview-nvim" },
 
