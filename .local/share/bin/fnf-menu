@@ -65,6 +65,7 @@ Emoji
 Theme
 Wallpaper
 Install/Uninstall
+Setting
 System
 EOL
   )
@@ -76,7 +77,24 @@ EOL
   *Theme*) themepicker_cmd ;;
   *Wallpaper*) wallpicker_cmd ;;
   *Install/Uninstall*) show_install_cmd ;;
+  *Setting*) show_setting_cmd ;;
   *System*) show_system_cmd ;;
+  *) log_error "Unknown selection: $selected" ;;
+  esac
+}
+
+show_setting_cmd() {
+  local selected=""
+  selected=$(echo -e "Bluetooth\nBluetooth (TUI)\nBluetooth (TUIth)\nNetwork\nNetwork (TUI)" |
+    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Setting:") || selected=""
+
+  case "$selected" in
+  *Bluetooth) blueman_cmd ;;
+  *Bluetooth*TUI\)) bluetui_cmd ;;
+  *Bluetooth*TUIth\)) bluetuith_cmd ;;
+  *Network) nm_connection_editor_cmd ;;
+  *Network*TUI*) wifitui_cmd ;;
+  "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
 }
@@ -227,10 +245,16 @@ Flags:
   -h, --help    Show this help information.
 
 Commands:
-  about           Show system informations.
-  emoji           Launch emoji picker.
-  theme           Launch theme picker.
-  wallpaper       Launch wallpaper picker.
+  about                  Show system informations.
+  blueman-manager        Launch Bluetooth Manager.
+  bluetui                Launch bluetui.
+  bluetuith              Launch bluetuith.
+  emoji                  Launch emoji picker.
+  nm-connection-editor   Launch Advanced Network Configuration.
+  nmtui                  Launch nmtui.
+  theme                  Launch theme picker.
+  wallpaper              Launch wallpaper picker.
+  wifitui                Launch wifitui.
 
 EOF
 }
@@ -244,8 +268,13 @@ run_cmd() {
   cmd="$1"
   case "$cmd" in
   about) about_cmd ;;
+  blueman-manager) blueman_cmd ;;
+  bluetui) bluetui_cmd ;;
+  bluetuith) bluetuith_cmd ;;
   drun) drun_cmd ;;
   emoji) emojipicker_cmd ;;
+  nm-connection-editor) nm_connection_editor_cmd ;;
+  nmtui) nmtui_cmd ;;
   wallpaper) wallpicker_cmd ;;
   theme) themepicker_cmd ;;
   -h | --help) run_help ;;
@@ -256,6 +285,18 @@ run_cmd() {
 about_cmd() {
   # terminal 'fastfetch; read -n 1 -s'
   gtk-launch About.desktop
+}
+
+blueman_cmd() {
+  gtk-launch blueman-manager.desktop
+}
+
+bluetui_cmd() {
+  ${TERMINAL} --class com.fnf.bluetui bluetui
+}
+
+bluetuith_cmd() {
+  ${TERMINAL} --class com.fnf.bluetuith bluetuith
 }
 
 wallpicker_cmd() {
@@ -382,6 +423,18 @@ drun_cmd() {
 emojipicker_cmd() {
   ROFI_ELEMENT_ICON_SIZE=0 \
     rofi -show emoji -i
+}
+
+nm_connection_editor_cmd() {
+  gtk-launch nm-connection-editor.desktop
+}
+
+nmtui_cmd() {
+  ${TERMINAL} --class com.fnf.nmtui nmtui
+}
+
+wifitui_cmd() {
+  ${TERMINAL} --class com.fnf.wifitui wifitui
 }
 
 reload_ghostty_cmd() {
