@@ -2,7 +2,7 @@
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Golang
-export PATH=/usr/local/go/bin:$HOME/go/bin:$PATH
+# export PATH=/usr/local/go/bin:$HOME/go/bin:$PATH
 
 # Rust
 export PATH=$HOME/.cargo/bin:$PATH
@@ -20,6 +20,11 @@ export EDITOR="nvim"
 # Set default terminal emulator, some applications may use this
 export TERMINAL="kitty"
 
+# Activate 'mise' if installed
+if (( ${+commands[mise]} )); then
+  eval "$(mise activate zsh)"
+fi
+
 # Activate 'oh-my-posh' if Installed
 if (( ${+commands[oh-my-posh]} )); then
     if [ -f "${HOME}/.config/oh-my-posh/omp.json" ]; then
@@ -29,7 +34,3 @@ if (( ${+commands[oh-my-posh]} )); then
     fi
 fi
 
-# Activate 'mise' if installed
-if (( ${+commands[mise]} )); then
-  eval "$(mise activate zsh)"
-fi
