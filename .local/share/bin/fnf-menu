@@ -85,7 +85,7 @@ EOL
 
 show_setting_cmd() {
   local selected=""
-  selected=$(echo -e "Bluetooth\nBluetooth (TUI)\nBluetooth (TUIth)\nNetwork\nNetwork (TUI)" |
+  selected=$(echo -e "Bluetooth\nBluetooth (TUI)\nBluetooth (TUIth)\nNetwork\nNetwork (TUI)\nVolume" |
     ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Setting:") || selected=""
 
   case "$selected" in
@@ -94,6 +94,7 @@ show_setting_cmd() {
   *Bluetooth*TUIth\)) bluetuith_cmd ;;
   *Network) nm_connection_editor_cmd ;;
   *Network*TUI*) wifitui_cmd ;;
+  *Volume) volume_control_cmd ;;
   "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
@@ -435,6 +436,10 @@ nmtui_cmd() {
 
 wifitui_cmd() {
   ${TERMINAL} --class com.fnf.wifitui wifitui
+}
+
+volume_control_cmd() {
+  gtk-launch org.pulseaudio.pavucontrol.desktop
 }
 
 reload_ghostty_cmd() {
