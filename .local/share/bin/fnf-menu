@@ -353,7 +353,7 @@ wallpicker_cmd() {
     log_info "Changing wallpaper from ${current} to ${selected}"
 
     ln -snf "${selected}" "${FNF_CONFIG_DIR}/current/wallpaper"
-    hyprctl hyprpaper reload ,"$selected" >/dev/null
+    hyprctl hyprpaper wallpaper , "${selected}" >/dev/null
   fi
 }
 
