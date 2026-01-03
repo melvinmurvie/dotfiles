@@ -87,6 +87,7 @@ tmux_conf_24b_colour=auto
 #   - tmux_conf_theme_synchronized
 tmux_conf_theme=enabled
 
+# window style
 tmux_conf_theme_window_fg="default"
 tmux_conf_theme_window_bg="default"
 
