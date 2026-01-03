@@ -6,9 +6,6 @@
 #         without any warranty.
 #         Copyright 2012— Gregory Pakosz (@gpakosz).
 
-# load current theme
-run '"$TMUX_PROGRAM" -S #{socket_path} source "$HOME/.config/fnf/current/theme/tmux.conf"'
-
 # -- bindings ------------------------------------------------------------------
 
 # preserve tmux stock bindings,
