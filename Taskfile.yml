@@ -52,10 +52,10 @@ tasks:
       # - task: setup:apt
       - task: setup:tools
       # - task: setup:go
-      - task: setup:node
+      # - task: setup:node
       - task: setup:config
-    cmds:
-      - task: setup:oh-my-zsh
+    cmds: []
+      # - task: setup:oh-my-zsh
       # - task: setup:oh-my-posh
 
   setup:apt:
