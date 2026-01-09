@@ -85,7 +85,7 @@ EOL
 
 show_setting_cmd() {
   local selected=""
-  selected=$(echo -e "Bluetooth\nBluetooth (TUI)\nBluetooth (TUIth)\nNetwork\nNetwork (TUI)\nVolume" |
+  selected=$(echo -e "Bluetooth\nBluetooth (TUI)\nBluetooth (TUIth)\nNetwork\nNetwork (TUI)\nVolume\nVolume (TUI)" |
     ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Setting:") || selected=""
 
   case "$selected" in
@@ -95,6 +95,7 @@ show_setting_cmd() {
   *Network) nm_connection_editor_cmd ;;
   *Network*TUI*) wifitui_cmd ;;
   *Volume) volume_control_cmd ;;
+  *Volume*TUI*) wiremix_cmd ;;
   "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
@@ -277,6 +278,7 @@ run_cmd() {
   nm-connection-editor) nm_connection_editor_cmd ;;
   nmtui) nmtui_cmd ;;
   wallpaper) wallpicker_cmd ;;
+  wiremix) wiremix_cmd ;;
   theme) themepicker_cmd ;;
   -h | --help) run_help ;;
   *) log_error "Unknown command: $cmd" && run_help && exit 2 ;;
@@ -440,6 +442,10 @@ wifitui_cmd() {
 
 volume_control_cmd() {
   gtk-launch org.pulseaudio.pavucontrol.desktop
+}
+
+wiremix_cmd() {
+  ${TERMINAL} --class com.fnf.wiremix wiremix
 }
 
 reload_ghostty_cmd() {
