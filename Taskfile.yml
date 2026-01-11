@@ -138,9 +138,9 @@ tasks:
 
   setup:tools:
     deps: [setup:config]
-    cmds:
-      - mise trust {{.CONFIG_HOME}}/mise
-      - mise install
+    cmds: []
+      # - mise trust {{.CONFIG_HOME}}/mise
+      # - mise install
     # deps:
     #   - task: _tool:task
     #     vars:
@@ -215,7 +215,7 @@ tasks:
       - task: _sync:ghostty
       - task: _sync:swaync
       - task: _sync:rofi
-      - task: _sync:mise
+      # - task: _sync:mise
       - task: _sync:alacritty
         vars: { DIR: "~" }
       - task: _syncfile:.config/btop/btop.conf
