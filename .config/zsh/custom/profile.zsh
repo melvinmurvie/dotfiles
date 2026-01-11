@@ -22,6 +22,7 @@ export TERMINAL="kitty"
 
 # Activate 'mise' if installed
 if (( ${+commands[mise]} )); then
+  source <(mise completion zsh)
   eval "$(mise activate zsh)"
 fi
 
@@ -34,3 +35,12 @@ if (( ${+commands[oh-my-posh]} )); then
     fi
 fi
 
+# Load tool completions if installed.
+
+if (( ${+commands[task]} )); then
+  source <(task --completion zsh)
+fi
+
+if (( ${+commands[k9s]} )); then
+  source <(k9s completion zsh)
+fi
