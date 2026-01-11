@@ -72,10 +72,10 @@ tasks:
       - "[ -d {{.FNF_CONFIG_DIR}}/current ] || mkdir -p {{.FNF_CONFIG_DIR}}/current"
 
       # Set up defaults
-      - "[ -d {{.FNF_CONFIG_DIR}}/current/theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-macchiato {{.FNF_CONFIG_DIR}}/current/theme"
+      - "[ -d {{.FNF_CONFIG_DIR}}/current/theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-mocha {{.FNF_CONFIG_DIR}}/current/theme"
 
       - "[ -d {{.CONFIG_HOME}}/btop/themes ] || mkdir -p {{.CONFIG_HOME}}/btop/themes"
-      - "[ -f {{.CONFIG_HOME}}/btop/themes/current.theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-macchiato/btop.theme {{.CONFIG_HOME}}/btop/themes/current.theme"
+      - "[ -f {{.CONFIG_HOME}}/btop/themes/current.theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-mocha/btop.theme {{.CONFIG_HOME}}/btop/themes/current.theme"
 
   _apt:
     requires:
