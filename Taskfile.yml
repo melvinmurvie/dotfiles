@@ -5,16 +5,10 @@ set: [errexit, nounset]
 vars:
   DATA_HOME: { sh: "echo ${XDG_DATA_HOME:-~/.local/share}" }
   CONFIG_HOME: { sh: "echo ${XDG_CONFIG_HOME:-~/.config}" }
-
   FNF_DATA_DIR: "{{.DATA_HOME}}/fnf"
   FNF_CONFIG_DIR: "{{.CONFIG_HOME}}/fnf"
-
-  # WIN_USER_PROFILE: { sh: 'wslpath $(pwsh.exe -Command ''[Environment]::GetFolderPath("UserProfile")'')' }
-  # WIN_USER_PROFILE: { sh: 'cd /mnt/c && wslpath $(cmd.exe /C "echo %USERPROFILE%")' } # cd part is just to suppress warning from WSL or cmd.exe of this is not run from windows path
   INSTALL_DIR: { sh: "echo ${HOME}/.local/bin" }
   MISE_VERSION: 2025.12.13
-  NVM_VERSION: v0.40.3
-  NODE_VERSION: v22.17.1
 
 silent: true
 
@@ -25,11 +19,9 @@ tasks:
 
   setup:
     desc: Setup all.
+    deps: [setup:config]
     cmds:
-      - "[ -d {{.INSTALL_DIR}} ] || mkdir -p {{.INSTALL_DIR}}"
-      # - task: setup:webi
       - task: setup:mise
-      - task: setup:dev
 
   setup:taskfile:
     cmds:
@@ -48,28 +40,10 @@ tasks:
     cmd: curl https://mise.run | sh
     status: ['[ "$(${MISE_INSTALL_PATH} version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
 
-  setup:dev:
-    deps:
-      # - task: setup:apt
-      - task: setup:tools
-      # - task: setup:go
-      # - task: setup:node
-      - task: setup:config
-    cmds: []
-      # - task: setup:oh-my-zsh
-      # - task: setup:oh-my-posh
-
-  setup:apt:
-    cmds:
-      - task: _apt
-        vars:
-          LIST:
-            - zsh
-            - ripgrep
-
   setup:config:
     run: once
     cmds:
+      - "[ -d {{.INSTALL_DIR}} ] || mkdir -p {{.INSTALL_DIR}}"
       - "[ -d {{.FNF_CONFIG_DIR}}/current ] || mkdir -p {{.FNF_CONFIG_DIR}}/current"
 
       # Set up defaults
@@ -78,17 +52,6 @@ tasks:
       - "[ -d {{.CONFIG_HOME}}/btop/themes ] || mkdir -p {{.CONFIG_HOME}}/btop/themes"
       - "[ -f {{.CONFIG_HOME}}/btop/themes/current.theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-mocha/btop.theme {{.CONFIG_HOME}}/btop/themes/current.theme"
       - "[ -f {{.FNF_CONFIG_DIR}}/hyprland.conf ] || touch {{.FNF_CONFIG_DIR}}/hyprland.conf"
-
-  _apt:
-    requires:
-      vars:
-        - LIST
-    vars:
-      PACKAGES: '{{join " " .LIST}}'
-    cmds:
-      - echo "Installing {{.PACKAGES}}"
-      - sudo apt install -qqy {{.PACKAGES}}
-    internal: true
 
   setup:zsh:
     cmds:
@@ -118,82 +81,6 @@ tasks:
       - curl -LSs https://go.dev/dl/go{{.GO_VERSION}}.linux-amd64.tar.gz | sudo tar -C /usr/local -xz
     status:
       - '[ $(go version | awk ''{print $3}'' | sed ''s/^go//'') = "{{.GO_VERSION}}" ]'
-
-  setup:node:
-    deps: [setup:nvm]
-    cmd: |
-      echo "!!! MANUAL SETUP !!!
-      Run the following command:
-
-      nvm install {{.NODE_VERSION}} && nvm use {{.NODE_VERSION}}"
-    status:
-      - '[ $(node --version) = "{{.NODE_VERSION}}" ]'
-
-  setup:nvm:
-    cmds:
-      - echo "Installing nvm {{.NVM_VERSION}}"
-      - mkdir -p ${HOME}/.nvm
-      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/{{.NVM_VERSION}}/install.sh | bash
-    status:
-      - 'test -n "${NVM_DIR}"'
-      - 'test -d "${NVM_DIR}"'
-
-  setup:tools:
-    deps: [setup:config]
-    cmds: []
-      # - mise trust {{.CONFIG_HOME}}/mise
-      # - mise install
-    # deps:
-    #   - task: _tool:task
-    #     vars:
-    #       VERSION: "{{.TASKFILE_VERSION}}"
-    #       STATUS: '[ "v$(task --version)" = "{{.TASKFILE_VERSION}}" ]'
-    #       DOWNLOAD_URL: https://github.com/go-task/task/releases/download/{{.TASKFILE_VERSION}}/task_linux_amd64.tar.gz
-    #   - task: _tool:lazygit
-    #     vars:
-    #       VERSION: "{{.LAZYGIT_VERSION}}"
-    #       STATUS: '[ $(lazygit --version | awk ''{print $6}'' | sed -E ''s/^version=(.*),/\1/'') = "{{.LAZYGIT_VERSION}}" ]'
-    #       DOWNLOAD_URL: https://github.com/jesseduffield/lazygit/releases/download/v{{.LAZYGIT_VERSION}}/lazygit_{{.LAZYGIT_VERSION}}_Linux_x86_64.tar.gz
-    #   - task: _tool:lazydocker
-    #     vars:
-    #       VERSION: "{{.LAZYDOCKER_VERSION}}"
-    #       STATUS: '[ $(lazydocker --version | head -n 1 | awk ''{print $2}'') = "{{.LAZYDOCKER_VERSION}}" ]'
-    #       DOWNLOAD_URL: https://github.com/jesseduffield/lazydocker/releases/download/v{{.LAZYDOCKER_VERSION}}/lazydocker_{{.LAZYDOCKER_VERSION}}_Linux_x86_64.tar.gz
-    #   - task: _tool:k9s
-    #     vars:
-    #       VERSION: "{{.K9S_VERSION}}"
-    #       STATUS: '[ $(k9s version --short | head -n 1 | awk ''{print $2}'') = "{{.K9S_VERSION}}" ]'
-    #       DOWNLOAD_URL: https://github.com/derailed/k9s/releases/download/{{.K9S_VERSION}}/k9s_Linux_amd64.tar.gz
-    #   - task: _tool:golangci-lint
-    #     vars:
-    #       VERSION: "{{.GOLANGCI_LINT_VERSION}}"
-    #       STATUS: '[ $(golangci-lint --version | awk ''{print $4}'') = "{{.GOLANGCI_LINT_VERSION}}" ]'
-    #       DOWNLOAD_URL: https://github.com/golangci/golangci-lint/releases/download/v{{.GOLANGCI_LINT_VERSION}}/golangci-lint-{{.GOLANGCI_LINT_VERSION}}-linux-amd64.tar.gz
-    #       STRIP_COMPONENTS: 1
-    #       DIR: golangci-lint-{{.GOLANGCI_LINT_VERSION}}-linux-amd64
-
-  _tool:*:
-    requires:
-      vars:
-        - VERSION
-        - STATUS
-        - DOWNLOAD_URL
-    vars:
-      TOOL: "{{index .MATCH 0}}"
-    label: _tool:{{.TOOL}}
-    cmds:
-      - echo "Installing {{.TOOL}} {{.VERSION}} to {{.INSTALL_DIR}}"
-      - curl -LSs {{.DOWNLOAD_URL}} |
-        tar
-        {{- if .STRIP_COMPONENTS}} --strip-components={{.STRIP_COMPONENTS}}{{- end}}
-        -C {{.INSTALL_DIR}}
-        -xz
-        {{- if .DIR}}
-        {{.DIR}}/{{.TOOL}}
-        {{- else}}
-        {{.TOOL}}
-        {{- end}}
-    status: ["{{.STATUS}}"]
 
   sync:
     desc: Sync all configurations.
@@ -233,28 +120,12 @@ tasks:
       - task: _sync:opencode/agent
       - task: _syncfile:.config/opencode/opencode.json
         vars: { DIR: "~" }
-      # - task: _sync:nvim
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Local" }
-      # - task: _sync:WindowsPowerShell
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
-      # - task: _sync:PowerShell
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/Documents" }
-      # - task: _sync:komorebi
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
-      # - task: _sync:yasb
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/.config" }
-      # - task: _sync:alacritty
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}/AppData/Roaming" }
       - task: _syncfile:.zshrc
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.bash_profile
         vars: { DIR: { sh: "echo ${HOME}" } }
-      # - task: _syncfile:.inputrc
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
-      # - task: _syncfile:.config/whkdrc
-      #   vars: { DIR: "{{.WIN_USER_PROFILE}}" }
       - task: _sync:bin
         vars:
           DIR: "{{.FNF_DATA_DIR}}"
