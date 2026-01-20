@@ -77,6 +77,7 @@ tasks:
 
       - "[ -d {{.CONFIG_HOME}}/btop/themes ] || mkdir -p {{.CONFIG_HOME}}/btop/themes"
       - "[ -f {{.CONFIG_HOME}}/btop/themes/current.theme ] || ln -snf {{.FNF_DATA_DIR}}/themes/catppuccin-mocha/btop.theme {{.CONFIG_HOME}}/btop/themes/current.theme"
+      - "[ -f {{.FNF_CONFIG_DIR}}/hyprland.conf ] || touch {{.FNF_CONFIG_DIR}}/hyprland.conf"
 
   _apt:
     requires:
