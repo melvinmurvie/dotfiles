@@ -1,4 +1,5 @@
 # Hyprland
+export HYPRCURSOR_THEME=Bibata-Modern-Classic
 export HYPRCURSOR_SIZE=24
 
 # Multi GPU https://wiki.hypr.land/Configuring/Multi-GPU/
