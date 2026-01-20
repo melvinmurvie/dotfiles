@@ -20,7 +20,8 @@ silent: true
 
 tasks:
   default:
-    deps: [setup, sync]
+    deps: [setup]
+    cmd: { task: sync }
 
   setup:
     desc: Setup all.
