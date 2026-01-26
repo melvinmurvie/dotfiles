@@ -20,13 +20,11 @@ export EDITOR="nvim"
 # Set default terminal emulator, some applications may use this
 export TERMINAL="kitty"
 
-# Activate 'mise' if installed
 if (( ${+commands[mise]} )); then
   source <(mise completion zsh)
   eval "$(mise activate zsh)"
 fi
 
-# Activate 'oh-my-posh' if Installed
 if (( ${+commands[oh-my-posh]} )); then
     if [ -f "${HOME}/.config/oh-my-posh/omp.json" ]; then
         eval "$(oh-my-posh init zsh --config ${HOME}/.config/oh-my-posh/omp.json)"
@@ -35,7 +33,9 @@ if (( ${+commands[oh-my-posh]} )); then
     fi
 fi
 
-# Load tool completions if installed.
+if (( ${+commands[zoxide]} )); then
+  eval "$(zoxide init zsh)"
+fi
 
 if (( ${+commands[task]} )); then
   source <(task --completion zsh)
@@ -43,4 +43,14 @@ fi
 
 if (( ${+commands[k9s]} )); then
   source <(k9s completion zsh)
+fi
+
+if (( ${+commands[yazi]} )); then
+  function y() {
+	  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	  command yazi "$@" --cwd-file="$tmp"
+	  IFS= read -r -d '' cwd < "$tmp"
+	  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+	  rm -f -- "$tmp"
+  }
 fi
