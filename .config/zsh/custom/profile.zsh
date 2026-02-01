@@ -25,6 +25,9 @@ export EDITOR="nvim"
 # Set default terminal emulator, some applications may use this
 export TERMINAL="kitty"
 
+# FZF ALT-C comamnd for search directory
+export FZF_ALT_C_COMMAND="fd --type directory --hidden --exclude .git"
+
 if (( ${+commands[mise]} )); then
   source <(mise completion zsh)
   eval "$(mise activate zsh)"
