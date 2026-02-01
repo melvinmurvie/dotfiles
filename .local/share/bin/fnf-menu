@@ -308,7 +308,7 @@ wallpicker_cmd() {
   local list=()
 
   mapfile -d '' list < <(find \
-    ~/Pictures \
+    ~/Pictures/wallpapers \
     "${FNF_CONFIG_DIR}/current/theme/wallpapers" \
     -type f \
     -print0 \
