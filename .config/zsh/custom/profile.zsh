@@ -1,6 +1,11 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# Vi mode
+#   Installed with plugins defined in `.zshrc`.
+VI_MODE_SET_CURSOR=true
+# VI_MODE_RESET_PROMPT_ON_MODE_CHANGE=true
+
 # Golang
 # export PATH=/usr/local/go/bin:$HOME/go/bin:$PATH
 
