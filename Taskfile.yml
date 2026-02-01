@@ -104,7 +104,7 @@ tasks:
       - task: _sync:ghostty
       - task: _sync:swaync
       - task: _sync:rofi
-      # - task: _sync:mise
+      - task: _sync:yazi
       - task: _sync:alacritty
         vars: { DIR: "~" }
       - task: _syncfile:.config/btop/btop.conf
