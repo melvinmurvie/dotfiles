@@ -160,7 +160,7 @@ tmux_conf_theme_window_status_attr="none"
 #tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_format="#{circled_window_index} #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,!,}#{?window_zoomed_flag,Z,}"
 #tmux_conf_theme_window_status_format="#I #W#{?#{||:#{window_bell_flag},#{window_zoomed_flag}}, ,}#{?window_bell_flag,🔔,}#{?window_zoomed_flag,🔍,}"
-tmux_conf_theme_window_status_format="#[fg=$colour_window_status_secondary_fg]#I: #[fg=$colour_window_status_fg]#W"
+tmux_conf_theme_window_status_format="#[fg=$colour_window_status_secondary_fg]#{?window_bell_flag,#[fg=$colour_window_status_bell_fg],}#I#{?window_zoomed_flag,#[fg=$colour_window_status_zoomed_fg],#[fg=$colour_window_status_secondary_fg]}: #[fg=$colour_window_status_fg]#W"
 
 # window current status style
 #   - built-in variables are:
@@ -175,7 +175,7 @@ tmux_conf_theme_window_status_format="#[fg=$colour_window_status_secondary_fg]#I
 tmux_conf_theme_window_status_current_fg="default"
 tmux_conf_theme_window_status_current_bg="default"
 tmux_conf_theme_window_status_current_attr="none"
-tmux_conf_theme_window_status_current_format="#[fg=$colour_window_status_current_secondary_fg,none]#I: #[fg=$colour_window_status_current_fg,bold,italics]#W"
+tmux_conf_theme_window_status_current_format="#[fg=$colour_window_status_current_secondary_fg]#I#{?window_zoomed_flag,#[fg=$colour_window_status_zoomed_fg],}: #[fg=$colour_window_status_current_fg,bold,italics]#W"
 
 # window activity status style
 tmux_conf_theme_window_status_activity_fg="default"
@@ -183,9 +183,9 @@ tmux_conf_theme_window_status_activity_bg="default"
 tmux_conf_theme_window_status_activity_attr="none"
 
 # window bell status style
-tmux_conf_theme_window_status_bell_fg="$colour_window_status_bell_fg"
-tmux_conf_theme_window_status_bell_bg="$colour_window_status_bell_bg"
-tmux_conf_theme_window_status_bell_attr="blink,bold"
+tmux_conf_theme_window_status_bell_fg="default"
+tmux_conf_theme_window_status_bell_bg="default"
+tmux_conf_theme_window_status_bell_attr="none"
 
 # window last status style
 tmux_conf_theme_window_status_last_fg="$colour_window_status_last_fg"
