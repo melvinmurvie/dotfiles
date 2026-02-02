@@ -25,8 +25,22 @@ export EDITOR="nvim"
 # Set default terminal emulator, some applications may use this
 export TERMINAL="kitty"
 
-# FZF ALT-C comamnd for search directory
-export FZF_ALT_C_COMMAND="fd --type directory --hidden --exclude .git"
+# Less command behavior, consult `less --help OR man less`
+export LESS="-SRXF"
+
+# Debian based distro conflict package name handling
+if (( ${+commands[fdfind]} )); then
+  if [ ! -L "${HOME}/.local/bin/fd" ]; then
+    ln -sf $(which fdfind) "${HOME}/.local/bin/fd"
+  fi
+
+  export FZF_ALT_C_COMMAND="fd --type directory --hidden --exclude .git"
+fi
+
+if (( ${+commands[fd]} )); then
+  # FZF ALT-C comamnd for search directory
+  export FZF_ALT_C_COMMAND="fd --type directory --hidden --exclude .git"
+fi
 
 if (( ${+commands[mise]} )); then
   source <(mise completion zsh)
