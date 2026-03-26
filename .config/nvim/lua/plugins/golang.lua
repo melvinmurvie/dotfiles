@@ -142,6 +142,8 @@ function M.config()
       -- "env" of type map[string]*string`
       if next(final_config.env) == nil then final_config.env = nil end
 
+      if final_config.mode == "auto" then final_config.mode = "debug" end
+
       notify("config:\n" .. vim.inspect(final_config), vim.log.levels.DEBUG)
       on_config(final_config)
     end,
