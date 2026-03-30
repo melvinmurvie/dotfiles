@@ -22,6 +22,8 @@ return {
         maps.n[prefix .. "wc"] = { "<Cmd>DiffviewClose<CR>", desc = "Close Diffview Tab Page" }
         maps.n[prefix .. "wh"] =
           { "<Cmd>DiffviewFileHistory %<CR>", desc = "Open Diffview file history on current file" }
+        maps.n[prefix .. "wa"] =
+          { "<Cmd>DiffviewFileHistory --all<CR>", desc = "Open Diffview file history on all files" }
       end,
     },
   },
