@@ -151,16 +151,20 @@ tasks:
       DIR: "{{.DIR | default .CONFIG_HOME}}"
       SRC: '{{.SRC | default (printf "%s/.config/%s/" .ROOT_DIR .CONFIG)}}'
       DELETE: '{{.DELETE | default "1"}}'
+      EXCLUDES: '{{.EXCLUDES | default ""}}'
     label: _sync:{{.CONFIG}}
     cmds:
       - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}/"
       - rsync
         --quiet
         --recursive
-        {{if eq .DELETE "1"}}
+        {{- if eq .DELETE "1"}}
         --delete
-        {{end}}
+        {{- end}}
         --mkpath
+        {{- range without (splitList "," .EXCLUDES) ""}}
+        --exclude "{{.}}"
+        {{- end}}
         {{.SRC}}
         {{.DIR}}/{{.CONFIG}}/
     internal: true
