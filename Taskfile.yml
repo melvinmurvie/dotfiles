@@ -117,7 +117,7 @@ tasks:
         vars: { DIR: "~" }
       - task: _syncfile:.config/walker/themes/macchiato.toml
         vars: { DIR: "~" }
-      - task: _sync:opencode/agent
+      - task: _sync:opencode/agents
       - task: _syncfile:.config/opencode/opencode.json
         vars: { DIR: "~" }
       - task: _syncfile:.zshrc
