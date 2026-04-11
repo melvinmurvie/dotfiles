@@ -92,6 +92,7 @@ tasks:
       - task: _sync:lazydocker
       - task: _sync:oh-my-posh
       - task: _sync:nvim
+        vars: { EXCLUDES: "lazy-lock.json" }
       - task: _sync:tmux
         vars:
           DELETE: "0"
