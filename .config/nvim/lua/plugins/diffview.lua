@@ -1,13 +1,5 @@
 return {
   "sindrets/diffview.nvim",
-  -- opts = {
-  --   hooks = {
-  --     view_post_layout = function(callback)
-  --       -- vim.cmd "tabclose"
-  --       vim.notify("closedclosed", callback)
-  --     end,
-  --   },
-  -- },
   event = "User AstroGitFile",
   dependencies = {
     { "AstroNvim/astroui", opts = { icons = { Diffview = "" } } },
