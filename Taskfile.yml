@@ -153,6 +153,7 @@ tasks:
       SRC: '{{.SRC | default (printf "%s/.config/%s/" .ROOT_DIR .CONFIG)}}'
       DELETE: '{{.DELETE | default "1"}}'
       EXCLUDES: '{{.EXCLUDES | default ""}}'
+      INCLUDES: '{{.INCLUDES | default ""}}'
     label: _sync:{{.CONFIG}}
     cmds:
       - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}/"
@@ -163,6 +164,9 @@ tasks:
         --delete
         {{- end}}
         --mkpath
+        {{- range without (splitList "," .INCLUDES) ""}}
+        --include "{{.}}"
+        {{- end}}
         {{- range without (splitList "," .EXCLUDES) ""}}
         --exclude "{{.}}"
         {{- end}}
