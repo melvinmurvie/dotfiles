@@ -118,9 +118,10 @@ tasks:
         vars: { DIR: "~" }
       - task: _syncfile:.config/walker/themes/macchiato.toml
         vars: { DIR: "~" }
-      - task: _sync:opencode/agents
-      - task: _syncfile:.config/opencode/opencode.json
-        vars: { DIR: "~" }
+      - task: _sync:opencode
+        vars:
+          EXCLUDES: "*"
+          INCLUDES: "opencode.json,AGENTS.md,agents/,agents/**,skills/,skills/**"
       - task: _syncfile:.zshrc
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
