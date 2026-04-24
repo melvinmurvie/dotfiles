@@ -179,5 +179,20 @@ return {
       },
     },
   },
+  {
+    "AstroNvim/astrocore",
+    ft = "go",
+    dependencies = {
+      { "AstroNvim/astroui", opts = { icons = { Golang = "" } } },
+    },
+    opts = function(_, opts)
+      local maps = opts.mappings
+      local prefix = "<Leader>dg"
+
+      maps.n[prefix] = { desc = require("astroui").get_icon("Golang", 1, true) .. "Golang" }
+      maps.n[prefix .. "c"] = { function() require("dap-go").debug_test() end, desc = "Debug test at cursor" }
+      maps.n[prefix .. "l"] = { function() require("dap-go").debug_last_test() end, desc = "Debug last test" }
+    end,
+  },
   M,
 }
