@@ -14,7 +14,7 @@
         {
           "foreground": "p:os",
           "style": "plain",
-          "template": "{{.Icon}} ",
+          "template": "\n{{.Icon}} ",
           "type": "os"
         },
         {
@@ -84,16 +84,8 @@
         }
       ],
       "type": "prompt"
-    },
-    {
-      "type": "rprompt",
-      "alignment": "right",
-      "segments": []
     }
   ],
-  "secondary_prompt": {
-    "template": "\uf105 "
-  },
   "final_space": true,
   "version": 4
 }
