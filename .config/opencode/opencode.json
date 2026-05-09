@@ -5,6 +5,12 @@
   "permission": {
     "edit": "ask",
     "bash": "ask",
-    "webfetch": "ask"
+    "webfetch": "ask",
+    "read": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow"
+    }
   }
 }
