@@ -147,6 +147,17 @@ tasks:
           SRC: "{{.ROOT_DIR}}/.local/share/icons/"
           DELETE: "0"
 
+  sync:sshd:
+    desc: Sync sshd configuration.
+    cmds:
+      - task: _sync:sshd_config.d
+        vars:
+          DIR: /etc/ssh
+          SRC: "{{.ROOT_DIR}}/etc/ssh/sshd_config.d/"
+          DELETE: "0"
+          SUDO: "1"
+          EXCLUDES: ".gitignore"
+
   _sync:*:
     vars:
       CONFIG: "{{index .MATCH 0}}"
@@ -155,10 +166,11 @@ tasks:
       DELETE: '{{.DELETE | default "1"}}'
       EXCLUDES: '{{.EXCLUDES | default ""}}'
       INCLUDES: '{{.INCLUDES | default ""}}'
+      SUDO: '{{.SUDO | default "0"}}'
     label: _sync:{{.CONFIG}}
     cmds:
       - echo "Syncing configuration for {{.CONFIG}} to {{.DIR}}/{{.CONFIG}}/"
-      - rsync
+      - '{{if eq .SUDO "1"}}sudo {{end}}rsync
         --quiet
         --recursive
         {{- if eq .DELETE "1"}}
@@ -173,6 +185,7 @@ tasks:
         {{- end}}
         {{.SRC}}
         {{.DIR}}/{{.CONFIG}}/
+        '
     internal: true
     ignore_error: true
 
