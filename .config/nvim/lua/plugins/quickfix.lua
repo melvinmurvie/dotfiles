@@ -81,6 +81,10 @@ return {
       maps.n[prefix .. "n"] = { "<Cmd>silent cnewer | copen<CR>", desc = "Newer list" }
       maps.n[prefix .. "p"] = { "<Cmd>silent colder | copen<CR>", desc = "Older list" }
       maps.n[prefix .. "h"] = { function() quickfix_history() end, desc = "History" }
+
+      -- add snacks quickfix picker to global find section
+      maps.n["<Leader>fx"] = { desc = "Quickfix/Lists" }
+      maps.n["<Leader>fx" .. "c"] = { function() require("snacks").picker.qflist() end, desc = "Quickfix" }
     end,
   },
 }
