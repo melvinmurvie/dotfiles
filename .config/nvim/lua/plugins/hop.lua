@@ -10,7 +10,7 @@ return {
           ["<Leader>s"] = { function() require("hop").hint_words() end, desc = "Hop hint words" },
 
           ---@diagnostic disable-next-line: missing-parameter
-          ["<Leader><S-s>"] = { function() require("hop").hint_lines() end, desc = "Hop hint lines" },
+          -- ["<Leader><S-s>"] = { function() require("hop").hint_lines() end, desc = "Hop hint lines" },
         },
         v = {
           ["<Leader>s"] = {
