@@ -40,9 +40,7 @@ local function quickfix_history()
           ft = "qf",
         },
       })
-      if nr == current_nr then
-        current_idx = #items
-      end
+      if nr == current_nr then current_idx = #items end
     end
   end
 
@@ -57,9 +55,7 @@ local function quickfix_history()
     title = "Quickfix History",
     format = "text",
     preview = "preview",
-    on_show = function(picker)
-      picker.list:view(current_idx)
-    end,
+    on_show = function(picker) picker.list:view(current_idx) end,
     confirm = function(picker, item)
       picker:close()
       if item then
