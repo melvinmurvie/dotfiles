@@ -46,6 +46,9 @@ return {
   -- Vue https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/vue
   { import = "astrocommunity.pack.vue" },
 
+  -- Astro https://github.com/AstroNvim/astrocommunity/tree/main/lua/astrocommunity/pack/astro
+  { import = "astrocommunity.pack.astro" },
+
   -- Terraform https://github.com/AstroNvim/astrocommunity/blob/main/lua/astrocommunity/pack/terraform
   { import = "astrocommunity.pack.terraform" },
 
