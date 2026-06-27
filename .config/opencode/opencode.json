@@ -22,6 +22,7 @@
     }
   },
   "plugin": [
-    "context-mode"
+    "context-mode",
+    "./plugins/caveman/plugin.js"
   ]
 }

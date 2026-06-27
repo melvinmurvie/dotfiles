@@ -121,7 +121,8 @@ tasks:
       - task: _sync:opencode
         vars:
           EXCLUDES: "*"
-          INCLUDES: "opencode.json,AGENTS.md,agents/,agents/**,skills/,skills/**"
+          INCLUDES: "opencode.json,AGENTS.md,agents/,agents/**,skills/,skills/**,plugins/,plugins/**,commands/,commands/**"
+      - task: _sync:caveman
       - task: _syncfile:.zshrc
         vars: { DIR: { sh: "echo ${HOME}" } }
       - task: _syncfile:.inputrc
