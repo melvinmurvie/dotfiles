@@ -39,12 +39,12 @@ hl.bind(mainMod .. " + SHIFT + L", hl.dsp.window.move({ direction = "r" }))
 hl.bind(mainMod .. " + SHIFT + K", hl.dsp.window.move({ direction = "u" }))
 hl.bind(mainMod .. " + SHIFT + J", hl.dsp.window.move({ direction = "d" }))
 
-hl.bind(mainMod .. " + N", hl.dsp.window.cycle_next("hist"))
-hl.bind(mainMod .. " + P", hl.dsp.window.cycle_next("hist", "prev"))
-hl.bind(mainMod .. " + TAB", hl.dsp.window.cycle_next("hist"))
-hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.window.cycle_next("hist", "prev"))
-hl.bind(mainMod .. " + bracketright", hl.dsp.window.cycle_next("hist"))
-hl.bind(mainMod .. " + bracketleft", hl.dsp.window.cycle_next("hist", "prev"))
+hl.bind(mainMod .. " + N", hl.dsp.window.cycle_next())
+hl.bind(mainMod .. " + P", hl.dsp.window.cycle_next({ next = false }))
+hl.bind(mainMod .. " + TAB", hl.dsp.window.cycle_next())
+hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.window.cycle_next({ next = false }))
+hl.bind(mainMod .. " + bracketright", hl.dsp.window.cycle_next())
+hl.bind(mainMod .. " + bracketleft", hl.dsp.window.cycle_next({ next = false }))
 
 -- Group movement
 hl.bind(mainMod .. " + CTRL + SHIFT + H", hl.dsp.window.move({ direction = "l", group_aware = true }))
