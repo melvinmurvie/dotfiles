@@ -4,7 +4,7 @@ hl.config({
   general = {
     col = {
       active_border = { colors = { "rgb(89b4fa)", "rgb(cba6f7)" }, angle = 45 },
-      inactive_border = "rgb(24273a)",
+      inactive_border = "rgb(1e1e2e)",
     },
   },
 
@@ -17,7 +17,7 @@ hl.config({
   group = {
     col = {
       border_active = { colors = { "rgb(89b4fa)", "rgb(cba6f7)" }, angle = 45 },
-      border_inactive = "rgb(24273a)",
+      border_inactive = "rgb(1e1e2e)",
     },
 
     groupbar = {
