@@ -11,10 +11,15 @@ require("windows")
 require("autostarts")
 
 local function safe_dofile(path)
-  local f = io.open(path)
+  local f, err = io.open(path)
   if f then
     f:close()
     dofile(path)
+  else
+    hl.notification.create({
+      text = "Failed to load '" .. path .. "':" .. err,
+      timeout = 1000,
+    })
   end
 end
 
