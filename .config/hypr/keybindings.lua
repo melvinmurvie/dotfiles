@@ -12,7 +12,7 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(G.browser))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(G.fileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(G.fnfMenu .. " run drun"))
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(G.serviceMenu))
-hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd(G.nc))
+hl.bind(mainMod .. " + CTRL + SHIFT + N", hl.dsp.exec_cmd(G.nc))
 hl.bind(opMod .. " + SPACE", hl.dsp.exec_cmd(G.fnfMenu .. " show main"))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(G.fnfMenu .. " run emoji"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(G.top))
@@ -43,8 +43,8 @@ hl.bind(mainMod .. " + N", hl.dsp.window.cycle_next())
 hl.bind(mainMod .. " + P", hl.dsp.window.cycle_next({ next = false }))
 hl.bind(mainMod .. " + TAB", hl.dsp.window.cycle_next())
 hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.window.cycle_next({ next = false }))
-hl.bind(mainMod .. " + bracketright", hl.dsp.window.cycle_next())
-hl.bind(mainMod .. " + bracketleft", hl.dsp.window.cycle_next({ next = false }))
+
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pin())
 
 -- Group movement
 hl.bind(mainMod .. " + CTRL + SHIFT + H", hl.dsp.window.move({ direction = "l", group_aware = true }))
@@ -54,9 +54,10 @@ hl.bind(mainMod .. " + CTRL + SHIFT + J", hl.dsp.window.move({ direction = "d", 
 hl.bind(mainMod .. " + CTRL + SHIFT + N", hl.dsp.group.move_window())
 hl.bind(mainMod .. " + CTRL + SHIFT + P", hl.dsp.group.move_window({ forward = false }))
 
+-- Workspace movement
 for i = 1, smw.get_amount_of_workspaces() do
   local n = tostring(i)
-  if n == "10" then
+  if i == 10 then
     n = "0"
   end
 
@@ -67,34 +68,36 @@ for i = 1, smw.get_amount_of_workspaces() do
   hl.bind(mainMod .. " + SHIFT + " .. n, smw.move_to_workspace(n))
 end
 
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + ALT + N", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + ALT + P", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + ALT + semicolon", hl.dsp.focus({ workspace = "previous" }))
+
 -- Switch active group
-hl.bind(mainMod .. " + CTRL + 1", hl.dsp.group.active({ index = 1 }))
-hl.bind(mainMod .. " + CTRL + 2", hl.dsp.group.active({ index = 2 }))
-hl.bind(mainMod .. " + CTRL + 3", hl.dsp.group.active({ index = 3 }))
-hl.bind(mainMod .. " + CTRL + 4", hl.dsp.group.active({ index = 4 }))
-hl.bind(mainMod .. " + CTRL + 5", hl.dsp.group.active({ index = 5 }))
-hl.bind(mainMod .. " + CTRL + 6", hl.dsp.group.active({ index = 6 }))
-hl.bind(mainMod .. " + CTRL + 7", hl.dsp.group.active({ index = 7 }))
-hl.bind(mainMod .. " + CTRL + 8", hl.dsp.group.active({ index = 8 }))
-hl.bind(mainMod .. " + CTRL + 9", hl.dsp.group.active({ index = 9 }))
-hl.bind(mainMod .. " + CTRL + 0", hl.dsp.group.active({ index = 10 }))
+for i = 1, 10 do
+  local n = tostring(i)
+  if i == 10 then
+    n = "0"
+  end
+
+  hl.bind(mainMod .. " + CTRL + " .. n, function()
+    if i > hl.get_active_window().group.size then
+      return
+    end
+
+    hl.dispatch(hl.dsp.group.active({ index = i }))
+  end)
+end
+
 hl.bind(mainMod .. " + CTRL + TAB", hl.dsp.group.next())
 hl.bind(mainMod .. " + CTRL + SHIFT + TAB", hl.dsp.group.prev())
 hl.bind(mainMod .. " + CTRL + L", hl.dsp.group.next())
 hl.bind(mainMod .. " + CTRL + H", hl.dsp.group.prev())
-hl.bind(mainMod .. " + CTRL + bracketright", hl.dsp.group.next())
-hl.bind(mainMod .. " + CTRL + bracketleft", hl.dsp.group.next())
-hl.bind(mainMod .. " + CTRL + I", hl.dsp.focus({ workspace = "previous" }))
 
 -- Example special workspace (scratchpad)
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
-
--- Scroll through existing workspaces
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
-hl.bind(mainMod .. " + CTRL + N", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + CTRL + P", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag())
