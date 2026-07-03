@@ -82,7 +82,8 @@ for i = 1, 10 do
   end
 
   hl.bind(mainMod .. " + CTRL + " .. n, function()
-    if i > hl.get_active_window().group.size then
+    local group = hl.get_active_window().group
+    if not group or i > group.size then
       return
     end
 
