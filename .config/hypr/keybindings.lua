@@ -12,7 +12,7 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(G.browser))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(G.fileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(G.fnfMenu .. " run drun"))
 hl.bind(mainMod .. " + U", hl.dsp.exec_cmd(G.serviceMenu))
-hl.bind(mainMod .. " + CTRL + SHIFT + N", hl.dsp.exec_cmd(G.nc))
+hl.bind(opMod .. " + CTRL + N", hl.dsp.exec_cmd(G.nc))
 hl.bind(opMod .. " + SPACE", hl.dsp.exec_cmd(G.fnfMenu .. " show main"))
 hl.bind(mainMod .. " + period", hl.dsp.exec_cmd(G.fnfMenu .. " run emoji"))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(G.top))
@@ -133,44 +133,33 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind(mainMod .. " + CTRL + SHIFT + Y", hl.dsp.exec_cmd("pkill -SIGUSR2 waybar"))
 hl.bind(mainMod .. " + CTRL + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
--- Audio control
-hl.bind(
-  mainMod .. " + CTRL + SHIFT + W",
-  hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  mainMod .. " + CTRL + SHIFT + S",
-  hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%-"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  mainMod .. " + CTRL + SHIFT + D",
-  hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SOURCE@ 1%+"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  mainMod .. " + CTRL + SHIFT + A",
-  hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SOURCE@ 1%-"),
-  { locked = true, repeating = true }
-)
-hl.bind(
-  mainMod .. " + CTRL + SHIFT + Z",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
-  { locked = true }
-)
-hl.bind(
-  mainMod .. " + CTRL + SHIFT + X",
-  hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
-  { locked = true }
-)
-hl.bind(mainMod .. " + CTRL + SHIFT + 1", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-hl.bind(mainMod .. " + CTRL + SHIFT + 2", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind(mainMod .. " + CTRL + SHIFT + 3", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+-- Submap: Audio / Media / Brightness
+hl.bind(opMod .. " + A", hl.dsp.submap("mediacontrolpanel"))
+hl.define_submap("mediacontrolpanel", function()
+  hl.bind("W", hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%+"), { locked = true, repeating = true })
+  hl.bind("S", hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 1%-"), { locked = true, repeating = true })
+  hl.bind(
+    "D",
+    hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SOURCE@ 1%+"),
+    { locked = true, repeating = true }
+  )
+  hl.bind(
+    "A",
+    hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SOURCE@ 1%-"),
+    { locked = true, repeating = true }
+  )
+  hl.bind("Z", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), { locked = true })
+  hl.bind("X", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), { locked = true })
 
--- Brightness control
-hl.bind(mainMod .. " + CTRL + SHIFT + period", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 1%+"), { repeating = true })
-hl.bind(mainMod .. " + CTRL + SHIFT + comma", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 1%-"), { repeating = true })
+  hl.bind("1", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+  hl.bind("2", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+  hl.bind("3", hl.dsp.exec_cmd("playerctl next"), { locked = true })
+
+  hl.bind("period", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 1%+"), { repeating = true })
+  hl.bind("comma", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 1%-"), { repeating = true })
+
+  hl.bind("escape", hl.dsp.submap("reset"))
+end)
 
 -- Submap: moveresize
 hl.bind(opMod .. " + R", hl.dsp.submap("moveresize"))
