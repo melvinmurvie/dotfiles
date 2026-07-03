@@ -1,7 +1,7 @@
 config-file = ~/.config/fnf/current/theme/ghostty
 
 font-family = JetBrainsMono Nerd Font
-font-size = 11
+font-size = 11.25
 
 background-opacity = 0.95
 background-blur = true
