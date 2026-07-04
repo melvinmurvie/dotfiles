@@ -38,7 +38,10 @@ tasks:
       MISE_VERSION: "{{.MISE_VERSION}}"
       MISE_INSTALL_PATH: "{{.INSTALL_DIR}}/mise"
     cmd: curl https://mise.run | sh
-    status: ['[ "$(${MISE_INSTALL_PATH} version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]']
+    status:
+      [
+        '[ "$(${MISE_INSTALL_PATH} version --quiet | tail | awk ''{print $1}'')" = "${MISE_VERSION}" ]',
+      ]
 
   setup:config:
     run: once
