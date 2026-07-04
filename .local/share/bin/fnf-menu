@@ -7,6 +7,7 @@ VERSION="latest"
 TERMINAL=${TERMINAL:-"kitty"}
 CONFIG_HOME=${XDG_CONFIG_HOME:-~/.config}
 DATA_HOME=${XDG_DATA_HOME:-~/.local/share}
+ICON_DIR="${DATA_HOME}/icons/fnf-menu"
 FNF_CONFIG_DIR=${CONFIG_HOME}/fnf
 FNF_DATA_DIR=${DATA_HOME}/fnf
 
@@ -56,19 +57,19 @@ EOF
 }
 
 show_main_cmd() {
-  local selected=""
-  selected=$(
-    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Menu:" <<EOL
-About
-Application
-Emoji
-Theme
-Wallpaper
-Install/Uninstall
-Setting
-System
-EOL
+  local list=(
+    "About|about.svg"
+    "Application|applications.svg"
+    "Emoji|emojis.svg"
+    "Theme|themes.svg"
+    "Wallpaper|wallpapers.svg"
+    "Tools|tools.svg"
+    "Setting|setting.svg"
+    "System|system.svg"
   )
+
+  local selected=""
+  selected=$(dmenu_select "Menu:" 250 "${list[@]}")
 
   case "$selected" in
   *About*) gtk-launch About.desktop ;;
@@ -76,7 +77,7 @@ EOL
   *Emoji*) emojipicker_cmd ;;
   *Theme*) themepicker_cmd ;;
   *Wallpaper*) wallpicker_cmd ;;
-  *Install/Uninstall*) show_install_cmd ;;
+  *Tools*) show_tools_cmd ;;
   *Setting*) show_setting_cmd ;;
   *System*) show_system_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
@@ -84,63 +85,78 @@ EOL
 }
 
 show_setting_cmd() {
+  local list=(
+    "Bluetooth|setting-bluetooth.svg"
+    "Network|setting-network.svg"
+    "Volume|setting-volume.svg"
+  )
+
   local selected=""
-  selected=$(echo -e "Bluetooth\nBluetooth (TUI)\nBluetooth (TUIth)\nNetwork\nNetwork (TUI)\nVolume\nVolume (TUI)" |
-    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Setting:") || selected=""
+  selected=$(dmenu_select "Setting:" 250 "${list[@]}")
+
+  echo "Selected -> ${selected}"
 
   case "$selected" in
-  *Bluetooth) blueman_cmd ;;
-  *Bluetooth*TUI\)) bluetui_cmd ;;
-  *Bluetooth*TUIth\)) bluetuith_cmd ;;
-  *Network) nm_connection_editor_cmd ;;
-  *Network*TUI*) wifitui_cmd ;;
-  *Volume) volume_control_cmd ;;
-  *Volume*TUI*) wiremix_cmd ;;
+  Bluetooth*) bluetui_cmd ;;
+  Network*) wifitui_cmd ;;
+  Volume*) wiremix_cmd ;;
   "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
 }
 
 show_system_cmd() {
+  local list=(
+    "Poweroff|system-poweroff.svg"
+    "Reboot|system-reboot.svg"
+    "Lock|system-poweroff.svg"
+    "Exit|system-exit.svg"
+  )
+
   local selected=""
-  selected=$(echo -e "Poweroff\nReboot\nLock\nExit" |
-    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "System:") || selected=""
+  selected=$(dmenu_select "System:" 250 "${list[@]}")
 
   case "$selected" in
-  *Poweroff*) systemctl poweroff ;;
-  *Reboot*) systemctl reboot ;;
-  *Lock*) hyprlock ;;
-  *Exit*) uwsm stop ;;
+  Poweroff*) systemctl poweroff ;;
+  Reboot*) systemctl reboot ;;
+  Lock*) hyprlock ;;
+  Exit*) uwsm stop ;;
   "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
 }
 
-show_install_cmd() {
+show_tools_cmd() {
+  local list=(
+    "Web App|tools-webapp.svg"
+  )
+
   local selected=""
-  selected=$(echo -e "Web App" |
-    ROFI_WINDOW_WIDTH=300 rofi -dmenu -i -p "Install/Uninstall:") || selected=""
+  selected=$(dmenu_select "Menu:" 250 "${list[@]}")
 
   case "$selected" in
-  *Web\ App*) show_install_webapp_cmd ;;
+  *Web\ App*) show_tools_webapp_cmd ;;
   "") show_main_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
 }
 
-show_install_webapp_cmd() {
+show_tools_webapp_cmd() {
+  local list=(
+    "Install|tools-webapp-install.svg"
+  )
+
   local selected=""
-  selected=$(echo -e "Install" |
-    ROFI_WINDOW_WIDTH=250 rofi -dmenu -i -p "Web app:") || selected=""
+  selected=$(dmenu_select "Web App:" 250 "${list[@]}")
 
   case "${selected}" in
-  *Install*) install_webapp_cmd ;;
-  "") show_install_cmd ;;
+  *Install*) webapp_install_cmd ;;
+  "") show_tools_cmd ;;
   *) log_error "Unknown selection: $selected" ;;
   esac
 }
 
-install_webapp_cmd() {
+webapp_install_cmd() {
   local app_name=""
   local app_url=""
   local app_icon=""
@@ -486,6 +502,32 @@ reload_tmux_cmd() {
 # -----------------------
 log_info() { printf "$(date '+%Y-%m-%d %H:%M:%S.%3N') INFO: %s\n" "$*"; }
 log_error() { printf "$(date '+%Y-%m-%d %H:%M:%S.%3N') ERROR: %s\n" "$*" >&2; }
+
+# Build a rofi dmenu from label[|icon] entries and print selection.
+# Args: <prompt> <window_width> <entry...>
+# Entry format: "label" (no icon) or "label|icon" (icon = filename in
+# $ICON_DIR without extension, or absolute path).
+dmenu_select() {
+  local prompt="$1"
+  local width="$2"
+  shift 2
+  local entries=("$@")
+  local dmenu=""
+  local label icon
+
+  for entry in "${entries[@]}"; do
+    if [[ "$entry" == *"|"* ]]; then
+      label="${entry%%|*}"
+      icon="${entry#*|}"
+      [[ "$icon" != /* ]] && icon="${ICON_DIR}/${icon}"
+      dmenu+="${label}\x00icon\x1f${icon}\n"
+    else
+      dmenu+="${entry}\n"
+    fi
+  done
+
+  echo -en "${dmenu}" | ROFI_WINDOW_WIDTH="${width}" rofi -dmenu -i -p "${prompt}" || true
+}
 
 main() {
   if [ $# -eq 0 ]; then

@@ -148,6 +148,11 @@ tasks:
           DIR: "{{.DATA_HOME}}"
           SRC: "{{.ROOT_DIR}}/.local/share/icons/"
           DELETE: "0"
+          EXCLUDES: "fnf-menu/"
+      - task: _sync:icons/fnf-menu
+        vars:
+          DIR: "{{.DATA_HOME}}"
+          SRC: "{{.ROOT_DIR}}/.local/share/icons/fnf-menu/"
 
   sync:sshd:
     desc: Sync sshd configuration.
