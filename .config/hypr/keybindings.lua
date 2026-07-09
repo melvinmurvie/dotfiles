@@ -46,6 +46,10 @@ hl.bind(mainMod .. " + SHIFT + TAB", hl.dsp.window.cycle_next({ next = false }))
 
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.window.pin())
 
+hl.bind(mainMod .. " + ALT + R", hl.dsp.layout("rotatesplit"))
+hl.bind(mainMod .. " + ALT + SHIFT + R", hl.dsp.layout("rotatesplit -90"))
+hl.bind(mainMod .. " + ALT + S", hl.dsp.layout("swapsplit"))
+
 -- Group movement
 hl.bind(mainMod .. " + CTRL + SHIFT + H", hl.dsp.window.move({ direction = "l", group_aware = true }))
 hl.bind(mainMod .. " + CTRL + SHIFT + L", hl.dsp.window.move({ direction = "r", group_aware = true }))
