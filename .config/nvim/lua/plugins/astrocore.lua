@@ -81,7 +81,7 @@ return {
         -- Snacks picker
         ["<Leader>f/"] = { function() require("snacks").picker.search_history() end, desc = "Find search history" },
         ["<Leader>f:"] = { function() require("snacks").picker.command_history() end, desc = "Find command history" },
-        ["<Leader>fj"] ={ function() require("snacks").picker.jumps() end, desc = "Find jumps" },
+        ["<Leader>fj"] = { function() require("snacks").picker.jumps() end, desc = "Find jumps" },
       },
     },
   },
