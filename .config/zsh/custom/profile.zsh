@@ -28,6 +28,9 @@ export TERMINAL="kitty"
 # Less command behavior, consult `less --help OR man less`
 export LESS="-SRXF"
 
+# OpenCode env
+export OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1
+
 # Debian based distro conflict package name handling
 if (( ${+commands[fdfind]} )); then
   if [ ! -L "${HOME}/.local/bin/fd" ]; then
