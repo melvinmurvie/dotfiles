@@ -8,7 +8,7 @@ vars:
   FNF_DATA_DIR: "{{.DATA_HOME}}/fnf"
   FNF_CONFIG_DIR: "{{.CONFIG_HOME}}/fnf"
   INSTALL_DIR: { sh: "echo ${HOME}/.local/bin" }
-  MISE_VERSION: 2025.12.13
+  MISE_VERSION: 2026.8.12
 
 silent: true
 
