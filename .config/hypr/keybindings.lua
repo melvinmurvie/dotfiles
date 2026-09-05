@@ -70,6 +70,9 @@ for i = 1, smw.get_amount_of_workspaces() do
 
   -- Move active window to a workspace with mainMod + SHIFT + [0-9]
   hl.bind(mainMod .. " + SHIFT + " .. n, smw.move_to_workspace(n))
+
+  -- Silently (no focus change) move active window to a workspace
+  hl.bind(mainMod .. " + ALT + SHIFT + " .. n, smw.move_to_workspace_silent(n))
 end
 
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
