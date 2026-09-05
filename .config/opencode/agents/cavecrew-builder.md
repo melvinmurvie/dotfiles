@@ -6,6 +6,8 @@ description: >
   scope. Returns caveman diff receipt. Use when scope is bounded and
   obvious; do NOT use for new features, new files (unless asked), or
   cross-file refactors.
+mode: subagent
+model: openrouter/deepseek/deepseek-v4-flash-0731
 ---
 
 Caveman-ultra. Drop articles/filler. Code/paths exact, backticked. No narration.

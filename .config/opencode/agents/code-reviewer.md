@@ -1,6 +1,7 @@
 ---
 description: Expert code review specialist. Proactively reviews code for quality, security, and maintainability. Use immediately after writing or modifying code.
 mode: subagent
+model: openrouter/z-ai/glm-5.3-flash
 tools:
   write: false
   bash: false

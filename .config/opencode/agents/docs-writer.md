@@ -1,6 +1,7 @@
 ---
 description: Writes and maintains project documentation
 mode: subagent
+model: openrouter/deepseek/deepseek-v4-flash-0731
 tools:
   bash: false
 ---

@@ -1,6 +1,7 @@
 ---
 description: Performs security audits and identifies vulnerabilities
 mode: subagent
+model: openrouter/deepseek/deepseek-v4-flash-0731
 tools:
   write: false
   edit: false
