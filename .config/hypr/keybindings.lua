@@ -23,6 +23,10 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
+hl.bind(
+  mainMod .. " + ALT + SHIFT + F",
+  hl.dsp.window.fullscreen_state({ mode = "fullscreen", action = "toggle", internal = 0, client = 2 })
+)
 
 -- Window movement
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "l" }))
