@@ -3,6 +3,18 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+-- Vue template formatting: keep attribute layout exactly as written
+-- (default "auto" collapses one-attr-per-line into wrapped multi-attr lines)
+local vue_preserve_attrs = {
+  settings = {
+    html = {
+      format = {
+        wrapAttributes = "preserve",
+      },
+    },
+  },
+}
+
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -30,6 +42,12 @@ return {
       disabled = { -- disable formatting capabilities for the listed language servers
         -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
         -- "lua_ls",
+        -- Prettier (via none-ls) handles formatting for web filetypes.
+        -- Disable LSP format to avoid double-format / conflicts.
+        "vtsls",
+        "vue_ls",
+        "volar", -- deprecated alias
+        -- "jsonls",
       },
       timeout_ms = 1000, -- default format timeout
       -- filter = function(client) -- fully override the default formatting function
@@ -44,6 +62,8 @@ return {
     -- client specific configuration can also go in `lsp/` in your configuration root (see `:h lsp-config`)
     config = {
       -- ["*"] = { capabilities = {} }, -- modify default LSP client settings such as capabilities
+      vue_ls = vue_preserve_attrs,
+      volar = vue_preserve_attrs, -- deprecated alias, kept until pack migrates
     },
     -- customize how language servers are attached
     handlers = {
