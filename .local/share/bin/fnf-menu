@@ -162,7 +162,7 @@ webapp_install_cmd() {
   local app_icon=""
   app_name=$(zenity --entry --text="App name:" --entry-text="My App" --title="Install Web App")
   app_url=$(zenity --entry --text="App URL:" --entry-text="https://example.com" --title="Install Web App")
-  app_icon=$(zenity --entry --text="App icon URL:" --entry-text="Must use PNG!" --title="Install Web App" --width 400 --extra-button="Choose file..." || true)
+  app_icon=$(zenity --entry --text="App icon URL:" --entry-text="Must use PNG or SVG!" --title="Install Web App" --width 400 --extra-button="Choose file..." || true)
 
   if [[ -z "${app_name}" || -z "${app_url}" || -z "${app_icon}" ]]; then
     log_error "App name, URL, or icon cannot be empty"
@@ -174,7 +174,7 @@ webapp_install_cmd() {
   local icon_path=""
 
   if [[ "${app_icon}" == "Choose file..." ]]; then
-    icon_path=$(zenity --file-selection --file-selection --file-filter="PNG files | *.png" --title="Install Web App")
+    icon_path=$(zenity --file-selection --file-selection --file-filter="Icon files (png, svg) | *.png *.svg" --title="Install Web App")
   else
     local icon_ext="${app_icon##*.}"
     icon_path="${install_icon_dir}/${app_name}.${icon_ext}"
