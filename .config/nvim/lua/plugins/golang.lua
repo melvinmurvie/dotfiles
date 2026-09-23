@@ -136,6 +136,10 @@ function M.config()
       final_env = astro.extend_tbl(final_env, parse_env_file(final_config.envFile))
       final_config.env = final_env
 
+      -- Delve builds relative packages from its own cwd, not the launched process cwd.
+      local adapter_cwd = expand(final_config.cwd)
+      dap.adapters.go.executable.cwd = adapter_cwd ~= "" and adapter_cwd or nil
+
       -- This guards if there is no env in the configurations final_config.env will be an empty
       -- table '{}' and delve does not like that. The error if env was an empty table: `Error
       -- on launch: Failed to launch: invalid debug configuration - cannot unmarshal array into
