@@ -19,11 +19,13 @@ No tests or linters. Configs validated by tools on startup.
 ## Code Style
 
 ### Indentation
+
 - **2 spaces**: YAML, JSON, Lua, shell scripts
 - **4 spaces**: Hyprland `.conf` files
 - Max line length: 120
 
 ### Shell Scripts
+
 ```bash
 #!/usr/bin/env bash
 set -euo pipefail
@@ -60,6 +62,7 @@ install_dir="${HOME}/.local/bin"
 ```
 
 **Key conventions:**
+
 - XDG compliance: respects `$XDG_CONFIG_HOME`, `$XDG_DATA_HOME`
 - Theme linking: symlinks in `~/.config/` point to `themes/`
 - Sync uses rsync with `--delete` by default (configurable per-task)
@@ -67,6 +70,7 @@ install_dir="${HOME}/.local/bin"
 ## OpenCode Agents
 
 Custom agents defined in `.config/opencode/agents/`:
+
 - `code-reviewer` - Quality/security review
 - `security-auditor` - Vulnerability focus
 - `docs-writer` - Documentation
