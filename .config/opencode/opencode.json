@@ -18,15 +18,15 @@
     }
   },
   "mcp": {
-    "context-mode": {
-      "type": "local",
-      "command": [
-        "context-mode"
-      ]
-    }
+    // "context-mode": {
+    //   "type": "local",
+    //   "command": [
+    //     "context-mode"
+    //   ]
+    // }
   },
   "plugin": [
-    "context-mode",
+    // "context-mode",
     "./plugins/caveman/plugin.js"
   ]
 }
