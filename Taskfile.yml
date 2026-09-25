@@ -94,7 +94,6 @@ tasks:
       - task: _sync:zellij
       - task: _sync:lazygit
       - task: _sync:lazydocker
-      - task: _sync:oh-my-posh
       - task: _sync:nvim
         vars: { EXCLUDES: "lazy-lock.json" }
       - task: _sync:tmux
