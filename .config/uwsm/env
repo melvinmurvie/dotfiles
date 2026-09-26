@@ -1,8 +1,7 @@
 export XCURSOR_SIZE=24
 
-# Nvidia https://wiki.hypr.land/Nvidia/
-export LIBVA_DRIVER_NAME=nvidia
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
+# Machine-specific variables (gitignored, not synced) https://wiki.hypr.land/Nvidia/
+# See env.d/env.example, copy to env.d/env
 
 # Input methods https://fcitx-im.org/wiki/Using_Fcitx_5_on_Wayland
 #export GTK_IM_MODULE=fcitx # Complained at the startup from fcitx maybe

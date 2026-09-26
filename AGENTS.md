@@ -66,6 +66,7 @@ install_dir="${HOME}/.local/bin"
 - XDG compliance: respects `$XDG_CONFIG_HOME`, `$XDG_DATA_HOME`
 - Theme linking: symlinks in `~/.config/` point to `themes/`
 - Sync uses rsync with `--delete` by default (configurable per-task)
+- Machine-specific uwsm GPU env: drop-ins in `env.d/` + `env-hyprland.d/`. After pulling on a GPU machine: `cp env.example env` in both dirs, run `task sync`, then `.config/uwsm/setup-gpu.sh`
 
 ## OpenCode Agents
 

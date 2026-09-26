@@ -1,0 +1,4 @@
+# Machine-specific files, keep only these tracked
+*
+!.gitignore
+!env.example

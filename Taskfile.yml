@@ -99,6 +99,8 @@ tasks:
       - task: _sync:kitty
       - task: _sync:hypr
       - task: _sync:uwsm
+        vars:
+          EXCLUDES: "env.d/.gitignore,env.d/env.example,env-hyprland.d/.gitignore,env-hyprland.d/env.example"
       - task: _sync:fontconfig
       - task: _sync:waybar
       - task: _sync:wofi
